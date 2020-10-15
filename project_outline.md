@@ -13,3 +13,14 @@
 ## System Requirements
 * Modern web browser for the UI
 * And system with installed python.
+
+## Constraints
+* As of now, no resource constraints are there.
+
+## Timeline
+* The whole project could be broken down into sub-activities as follows:
+* Analyzing various citations platforms, their filters and all.
+* Creating Web page for the UI.
+* Backend part, creating python scripts to extract the data.
+* Figuring out some approach to remove duplicates.
+* Validating the results.
