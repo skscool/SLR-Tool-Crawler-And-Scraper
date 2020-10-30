@@ -14,32 +14,23 @@
 * Integrating frontend and backend.
 * Hosting the website.
 
-## System Requirements
-* Modern web browser for the UI.
-* And system with installed python.
+## System Requirements for using the Application
+* Modern web browser.
 
 ## Constraints
-* As of now, no resource constraints are there.
+* If the search is too generic then it takes some time to show the results.
 
 ## Timeline
 * The whole project could be broken down into sub-activities as follows:
 * Phase 1 -- 17-10-2020 : 
-
-    Backend part, creating python scripts to extract the data for each library. 
+    - Backend part, creating python scripts to extract the data for each library. 
 * Phase 2 -- 30-10-2020 : 
-
-    Analyzing various citations platforms, their filters and all.
+    - Analyzing various citations platforms, their filters and all.
 * Phase 3 -- 10-11-2020 : 
-
-    Extract results for IEEE.
-    
-    Creating Web page for the UI. 
-    
-    Generating search string url for every library based on the user input.
-    
-    Combining the results and removing duplicates.
-    
-    Integrating frontend and backend.
-    
-    Hosting the website.
+    - Extract results for IEEE.
+    - Creating Web page for the UI. 
+    - Generating search string url for every library based on the user input.
+    - Combining the results and removing duplicates.
+    - Integrating frontend and backend.
+    - Hosting the website.
 * Phase 4 -- Validating the results.
