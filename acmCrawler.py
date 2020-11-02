@@ -1,28 +1,5 @@
 from bs4 import BeautifulSoup as sp
 import requests
-import csv
-
-
-# def getTitle(citation):
-# 	try:
-# 		title = citation.find("span",{"class":"hlFld-Title"}).get_text(" ",strip=True)
-# 	except:
-# 		title = "Not Available"
-# 	return title
-
-# def getAuthors(citation):
-# 	try:
-# 		authors = citation.find("ul",{"aria-label":"authors"}).get_text(strip=True).replace(',',';')
-# 	except:
-# 		authors = "Not Available"
-# 	return authors
-
-# def getURL(citation):
-# 	try:
-# 		c_url = citation.find("span",{"class":"hlFld-Title"}).a.get_href(strip=True)
-# 	except:
-# 		c_url = "Not Available"
-# 	return c_url
 
 def getDOI(citation):
 	try:
@@ -39,7 +16,7 @@ def parsed_bibText(dois):
 		url = "https://dl.acm.org/action/exportCiteProcCitation"
 		data = {'dois':dois,'targetFile':'custom-bibtex','format':'bibTex'}
 		response = requests.post(url,data = data).json()
-		bib = {}
+		bib = response
 
 	except:
 		bib = "Error Fetching BibText"
@@ -64,11 +41,6 @@ def main():
 
 	x = requests.get(myurl)
 	parsed_html = sp(x.text,"html.parser")
-
-	# f = open("firstpage.txt","r")
-	# y = f.read()
-	# parsed_html = sp(y,"html.parser")
-	# print(parsed_html.prettify())
 
 	totalNumber = int(parsed_html.find("span",{"class":"hitsLength"}).string.strip().replace(',',''))
 	totalPages = int(totalNumber/20)
