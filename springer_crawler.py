@@ -23,10 +23,10 @@ for page in range (1, noOfSearchPages):
   result = page_soup.findAll('div', {'class': 'result-item'})   #html-container of items in search-result
   #------------------------------------------------for each search-result item------------------------------------------------------
   for item in result:
-    link = http + item.find('h4').find('a')['href']   #link to the book's landing page
-    bookLandingPage = requests.get(link).text
-    bookSoup = soup(bookLandingPage, "html.parser")   #get book landing page HTML
-    bibliographySection = bookSoup.find('div', {'class':'product-bibliographic'})   #this section has DOI
+    link = http + item.find('h4').find('a')['href']   #link to the item's landing page
+    itemLandingPage = requests.get(link).text
+    itemSoup = soup(itemLandingPage, "html.parser")   #get item landing page HTML
+    bibliographySection = itemSoup.find('div', {'class':'product-bibliographic'})   #this section has DOI
     divDOI = bibliographySection.findAll('dl')[2]
     DOI = divDOI.findAll('dd')[1].string.strip()      #get DOI
 
