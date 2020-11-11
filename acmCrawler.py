@@ -21,6 +21,22 @@ def parsed_bibText(dois):
 	try:
 		response = requests.post(url,data = data).json()
 		bib = {}
+		try:
+			#	CHAPTER -> inbook
+			#	PAPER-CONFERENCE ==> inproceedings
+			#	ARTICLE ==> article
+			#	REPORT ==> techreport
+			typee = response['items'][0][dois]['type']
+			if typee == "CHAPTER":
+				bib['type'] = "inbook"
+			elif typee == "REPORT":
+				bib['type'] = "techreport"
+			elif typee == "ARTICLE":
+				bib['type'] = "article"
+			else:
+				bib['type'] = "inproceedings"
+		except:
+			pass
 		bib['author'] = ""
 		i = False
 		imp_response = response['items'][0][dois]
@@ -33,6 +49,7 @@ def parsed_bibText(dois):
 					bib['author'] += " and "
 				i = True
 				bib['author'] += athr['family']+", "+athr['given']
+
 		except:
 			pass
 		try:
@@ -125,7 +142,6 @@ def main():
 	# Extract first page
 	scrape(parsed_html)
 	# return
-
 	for i in range(1,totalPages+1):
 		print("Page ",i)
 		try:
