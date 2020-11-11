@@ -10,7 +10,7 @@ def home():
 
 @app.route('/ACM')
 def acm():
-	return render_template('ACM.html')
+	return render_template('acm.html')
 
 @app.route('/receive_data',methods =['POST'])
 def fun():

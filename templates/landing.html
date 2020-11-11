@@ -1,41 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>SLR: Crawler & Scraper</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<style></style>
+    <title>SLR: Crawler & Scraper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style rel="stylesheet" href="./style.css"></style>
+    <style>
+        input[type="text"],
+        select.form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #000000;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        
+        input[type="text"]:focus,
+        select.form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        
+        label {
+            font-size: 80%;
+        }
+        /* input:focus~.floating-label,
+        input:not(:focus):valid~.floating-label {
+            top: 8px;
+            bottom: 10px;
+            left: 20px;
+            font-size: 11px;
+            opacity: 1;
+        }
+        
+        .inputText {
+            font-size: 14px;
+            width: 200px;
+            height: 35px;
+        }
+        
+        .floating-label {
+            position: absolute;
+            pointer-events: none;
+            left: 30px;
+            top: 28px;
+            transition: 0.2s ease all;
+        } */
+    </style>
 </head>
+
 <body>
-	<div class="container">
-		<h1>Literature Library</h1>
-		<div class="card text-center">
-		  <div class="card-header">
-		    <ul class="nav nav-tabs card-header-tabs">
-		      <li class="nav-item">
-		        <a class="nav-link active" href="#">All</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="/ACM">ACM</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">IEEE</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">Springer</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">ScienceDirect</a>
-		      </li>
-		    </ul>
-		  </div>
-		  <div class="card-body">
-			<h4>Search for literature in ACM, IEEE, Springer, ScienceDirect</h4>
-		  	<form action = "/receive_data" method="POST">
-		  		<input type="text" name="input_data">
-		  		<button type = "submit">Search</button>
-		  	</form>
-		  </div>
-		</div>
-	</div>
+    <div class="container">
+        <h1>Literature Library</h1>
+        <div class="card">
+            <div class="card-header ">
+                <ul class="nav nav-tabs nav-fill card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ACM">ACM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">IEEE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Springer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ScienceDirect</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <p>Search for literature in ACM, IEEE, Springer, ScienceDirect</p>
+                <form action="/receive_data" method="POST">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationDefault01">First name</label>
+                            <input type="text" class="form-control inputText" id="validationDefault01" required>
+                            <!-- <span class="floating-label">Find articles with these terms</span> -->
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationDefault02">Last name</label>
+                            <input type="text" class="form-control" id="validationDefault02" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationDefault03">City</label>
+                            <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault04">State</label>
+                            <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault05">Zip</label>
+                            <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                            <label class="form-check-label" for="invalidCheck2">
+												Agree to terms and conditions
+											</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </form>
+                <!-- <form action="/receive_data" method="POST">
+                    <input type="text" name="input_data">
+                    <button type="submit">Search</button> 
+                </form> -->
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
