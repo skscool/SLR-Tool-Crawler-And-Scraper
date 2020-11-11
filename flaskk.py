@@ -8,6 +8,10 @@ app = Flask(__name__)
 def home():
 	return render_template('landing.html')
 
+@app.route('/ACM')
+def acm():
+	return render_template('ACM.html')
+
 @app.route('/receive_data',methods =['POST'])
 def fun():
 	# print("sdfadsf = ",request.form['input_data'])
