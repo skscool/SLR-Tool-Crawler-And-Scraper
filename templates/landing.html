@@ -36,43 +36,43 @@
                 <form action="/receive_data" method="POST">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label for="validationDefault01">First name</label>
-                            <input type="text" class="form-control inputText" id="validationDefault01" required>
+                            <label for="validationDefault01">Search</label>
+                            <input type="text" class="form-control inputText" id="validationDefault01" name = "basic" required>
                             <!-- <span class="floating-label">Find articles with these terms</span> -->
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationDefault02">Last name</label>
-                            <input type="text" class="form-control" id="validationDefault02" required>
+					</div>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault03">Title</label>
+                            <input type="text" class="form-control" id="validationDefault03" placeholder="Title" name = "title">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="validationDefault03">City</label>
-                            <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
-                        </div>
                         <div class="col-md-3 mb-3">
-                            <label for="validationDefault04">State</label>
-                            <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationDefault05">Zip</label>
-                            <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                            <label for="validationDefault04">Author</label>
+                            <input type="text" class="form-control" id="validationDefault04" placeholder="Author" name = "author">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                            <label class="form-check-label" for="invalidCheck2">
-												Agree to terms and conditions
-											</label>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault05">Author Specific Keywords</label>
+                            <input type="text" class="form-control" id="validationDefault05" placeholder="Author Specific Keywords" name = "authSpecKey">
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Submit form</button>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault06">ISSN</label>
+                            <input type="text" class="form-control" id="validationDefault06" placeholder="ISSN" name = "issn">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="validationDefault07">ISBN</label>
+                            <input type="text" class="form-control" id="validationDefault07" placeholder="ISBN" name = "isbn">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </form>
-                <!-- <form action="/receive_data" method="POST">
-                    <input type="text" name="input_data">
-                    <button type="submit">Search</button> 
-                </form> -->
             </div>
         </div>
     </div>
