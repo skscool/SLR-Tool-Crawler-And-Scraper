@@ -4,50 +4,8 @@
 <head>
     <title>SLR: Crawler & Scraper</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style rel="stylesheet" href="./style.css"></style>
-    <style>
-        input[type="text"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-        
-        input[type="text"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-        
-        label {
-            font-size: 80%;
-        }
-        /* input:focus~.floating-label,
-        input:not(:focus):valid~.floating-label {
-            top: 8px;
-            bottom: 10px;
-            left: 20px;
-            font-size: 11px;
-            opacity: 1;
-        }
-        
-        .inputText {
-            font-size: 14px;
-            width: 200px;
-            height: 35px;
-        }
-        
-        .floating-label {
-            position: absolute;
-            pointer-events: none;
-            left: 30px;
-            top: 28px;
-            transition: 0.2s ease all;
-        } */
-    </style>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
 </head>
 
 <body>
@@ -74,7 +32,7 @@
                 </ul>
             </div>
             <div class="card-body">
-                <p>Search for literature in ACM, IEEE, Springer, ScienceDirect</p>
+                <p>Search for literature in ACM, IEEE, Springer and ScienceDirect</p>
                 <form action="/receive_data" method="POST">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
