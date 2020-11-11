@@ -10,7 +10,16 @@ def home():
 
 @app.route('/ACM')
 def acm():
-	return render_template('acm.html')
+	return render_template('ACM.html')
+@app.route('/Springer')
+def springer():
+	return render_template('Springer.html')
+@app.route('/IEEE')
+def IEEE():
+	return render_template('IEEE.html')
+@app.route('/ScienceDirect')
+def ScienceDirect():
+	return render_template('ScienceDirect.html')
 
 @app.route('/receive_data',methods =['POST'])
 def fun():

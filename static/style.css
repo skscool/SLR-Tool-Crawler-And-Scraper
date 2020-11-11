@@ -1,0 +1,80 @@
+input[type="text"],
+select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+input[type="text"]:focus,
+select.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+label {
+    font-size: 80%;
+}
+
+/* Small devices (landscape phones, 544px and up) */
+
+@media (min-width: 544px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    /*1rem = 16px*/
+}
+
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    /*1rem = 16px*/
+}
+
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    /*1rem = 16px*/
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+    h1 {
+        font-size: 3rem;
+    }
+    /*1rem = 16px*/
+}
+/* input:focus~.floating-label,
+input:not(:focus):valid~.floating-label {
+    top: 8px;
+    bottom: 10px;
+    left: 20px;
+    font-size: 11px;
+    opacity: 1;
+}
+
+.inputText {
+    font-size: 14px;
+    width: 200px;
+    height: 35px;
+}
+
+.floating-label {
+    position: absolute;
+    pointer-events: none;
+    left: 30px;
+    top: 28px;
+    transition: 0.2s ease all;
+} */
