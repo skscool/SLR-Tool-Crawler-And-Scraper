@@ -126,9 +126,10 @@ def scrape(parsed_html):
 		# return
 
 def main():
-	myurl = str(input("Search:"))
-	myurl.replace(' ','+')
-	myurl = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl&field1=AllField&text1="+myurl
+	# myurl = str(input("Search:"))
+	# myurl.replace(' ','+')
+	# myurl = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl&field1=AllField&text1="+myurl
+	myurl = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl&field1=ContribAuthor&text1=markus"
 
 	x = requests.get(myurl)
 	parsed_html = sp(x.text,"html.parser")
