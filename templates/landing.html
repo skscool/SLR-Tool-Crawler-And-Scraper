@@ -6,6 +6,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="./style.css"> -->
     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+	    // $('#multi7').mdbRange({
+	    //   value: {
+	    //     min: -250,
+	    //     max: 250
+	    //   },
+	    //   single: {
+	    //     active: true,
+	    //     multi: {
+	    //       active: true,
+	    //       rangeLength: 1
+	    //     },
+	    //   }
+	    // });
+	    var slider = new Slider('#ex2', {});
+    </script>
 </head>
 
 <body>
@@ -69,6 +87,14 @@
                         <div class="col-md-3 mb-3">
                             <label for="validationDefault07">ISBN</label>
                             <input type="text" class="form-control" id="validationDefault07" placeholder="ISBN" name = "isbn">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="multi-range-field my-5 pb-5" >
+                            <label for="ex2">Year</label>
+                            <!-- <input type="range" class="form-control multi-range" id = "multi7" name = "yearStart"> -->
+                            <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]">
+
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Search</button>
