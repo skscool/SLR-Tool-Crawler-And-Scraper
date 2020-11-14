@@ -23,10 +23,10 @@ def ScienceDirect():
 
 @app.route('/receive_data',methods =['POST'])
 def fun():
-	# print("sdfadsf = ",request.form['input_data'])
-	file = open("temp.txt","w")
-	file.write(request.form['input_data'])
-	return redirect('/download')
+	print("sdfadsf = ",request.form['yearStart'])
+	# file = open("temp.txt","w")
+	# file.write(request.form['input_data'])
+	return redirect('/')
 
 @app.route('/download')
 def downloadFile ():

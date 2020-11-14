@@ -3,115 +3,14 @@
 <head>
 	<title>IEEE</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<style>
-	body{
-		background: #005AA7;  /* fallback for old browsers */
-		background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
-		background: linear-gradient(to top, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-	}
-	
-	#topHeading{
-		color: white;
-	}
-	
-	.grid-container {
-	  display: grid;
-	  grid-template-columns: 1fr 1fr 1fr 1fr;
-	  grid-template-rows: 0fr .6fr .6fr .6fr .6fr;
-	  gap: 0px 0px;
-	  grid-template-areas:
-		"titleArea titleArea titleArea titleArea"
-		"searchWithinArea searchWithinArea searchWithinArea searchWithinArea"
-		"filtersArea filtersArea filtersArea filtersArea"
-		"publicationDateArea publicationDateArea publicationDateArea publicationDateArea"
-		"downloadButtonArea downloadButtonArea downloadButtonArea downloadButtonArea";
-	}
-
-	.titleArea { grid-area: titleArea; }
-
-	.searchWithinArea { grid-area: searchWithinArea; }
-
-	.filtersArea { grid-area: filtersArea; }
-
-	.publicationDateArea { grid-area: publicationDateArea; }
-
-	.downloadButtonArea { grid-area: downloadButtonArea; margin-top: 10px;}
-	
-	#publicationDate{
-		display: inline-block; text-align: center; padding:5px; margin: 5px;
-	}
-	.rowMarginTop{margin-top: 3px; margin-bottom: 3px;}
-	
-	#publicationDate >*{
-		margin-top: 3px;
-		margin-bottom: 3px;
-		margin-right: 5px;
-	}
-	select{
-		margin-right: 5px;
-		margin-left: 5px;
-		height: 30px;
-		width: 150px;
-		padding: 3px;
-	}
-	
-	select:hover{
-		background-color: #007BFF;
-		border: 1px solid #007BFF;
-		color: white;
-		box-shadow: 0px 0px 5px #007BFF;
-	}
-	
-	option{
-		background-color: white;
-		color: #007BFF;
-	}
-	
-	input:hover{
-		border: 2px solid #007BFF;
-		box-shadow: 0px 0px 5px #007BFF;
-	}
-	
-	input:hover::-webkit-input-placeholder{
-		color: white;
-	}
-	
-	
-	
-	.add-del-Button{
-		width: 30px;
-		border: 2px solid #007BFF;
-		background-color: white;
-		color: #007BFF;
-		outline: none;
-		cursor: pointer;
-		border-radius: 50%;	
-		margin-left: 5px;
-	}
-	
-	.add-del-Button:hover{
-		color: white;
-		background-color: #007BFF;
-		border-color: white;
-		transform: scale(1.1);
-	}
-	
-	.from-to-label{
-		margin-right: 10px;
-		margin-left: 10px;
-	}
-</style>
-
+	<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
 </head>
 <body>
 	<div class="container">
-	<h1 id="topHeading">SLR Tool : Crawler & Scraper</h1>
+	<h1 id="topHeading">Literature Library</h1>
 	<div class="card text-center">
 	  <div class="card-header">
-	    <ul class="nav nav-tabs card-header-tabs">
+	    <ul class="nav nav-tabs nav-fill card-header-tabs">
 	      <li class="nav-item">
 	        <a class="nav-link" href="/">All</a>
 	      </li>

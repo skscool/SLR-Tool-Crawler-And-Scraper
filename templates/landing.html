@@ -6,29 +6,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="./style.css"> -->
     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-	    // $('#multi7').mdbRange({
-	    //   value: {
-	    //     min: -250,
-	    //     max: 250
-	    //   },
-	    //   single: {
-	    //     active: true,
-	    //     multi: {
-	    //       active: true,
-	    //       rangeLength: 1
-	    //     },
-	    //   }
-	    // });
-	    var slider = new Slider('#ex2', {});
-    </script>
 </head>
 
 <body>
     <div class="container">
-        <h1>Literature Library</h1>
+        <h1 id = "topHeading">Literature Library</h1>
         <div class="card">
             <div class="card-header ">
                 <ul class="nav nav-tabs nav-fill card-header-tabs">
