@@ -3,29 +3,129 @@
 <head>
 	<title>ACM</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
+
+<style>
+	body{
+		background: #005AA7;  /* fallback for old browsers */
+		background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to top, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+	}
+	
+	#topHeading{
+		color: white;
+	}
+	
+	.grid-container {
+	  display: grid;
+	  grid-template-columns: 1fr 1fr 1fr 1fr;
+	  grid-template-rows: 0fr .6fr .6fr .6fr .6fr;
+	  gap: 0px 0px;
+	  grid-template-areas:
+		"titleArea titleArea titleArea titleArea"
+		"searchWithinArea searchWithinArea searchWithinArea searchWithinArea"
+		"filtersArea filtersArea filtersArea filtersArea"
+		"publicationDateArea publicationDateArea publicationDateArea publicationDateArea"
+		"downloadButtonArea downloadButtonArea downloadButtonArea downloadButtonArea";
+	}
+
+	.titleArea { grid-area: titleArea; }
+
+	.searchWithinArea { grid-area: searchWithinArea; }
+
+	.filtersArea { grid-area: filtersArea; }
+
+	.publicationDateArea { grid-area: publicationDateArea; }
+
+	.downloadButtonArea { grid-area: downloadButtonArea; margin-top: 10px;}
+	
+	#publicationDate{
+		display: inline-block; text-align: center; padding:5px; margin: 5px;
+	}
+	.rowMarginTop{margin-top: 3px; margin-bottom: 3px;}
+	
+	#publicationDate >*{
+		margin-top: 3px;
+		margin-bottom: 3px;
+		margin-right: 5px;
+	}
+	select{
+		margin-right: 5px;
+		margin-left: 5px;
+		height: 30px;
+		width: 150px;
+		padding: 3px;
+	}
+	
+	select:hover{
+		background-color: #007BFF;
+		border: 1px solid #007BFF;
+		color: white;
+		box-shadow: 0px 0px 5px #007BFF;
+	}
+	
+	option{
+		background-color: white;
+		color: #007BFF;
+	}
+	
+	input:hover{
+		border: 2px solid #007BFF;
+		box-shadow: 0px 0px 5px #007BFF;
+	}
+	
+	input:hover::-webkit-input-placeholder{
+		color: white;
+	}
+	
+	
+	
+	.add-del-Button{
+		width: 30px;
+		border: 2px solid #007BFF;
+		background-color: white;
+		color: #007BFF;
+		outline: none;
+		cursor: pointer;
+		border-radius: 50%;	
+		margin-left: 5px;
+	}
+	
+	.add-del-Button:hover{
+		color: white;
+		background-color: #007BFF;
+		border-color: white;
+		transform: scale(1.1);
+	}
+	
+	.from-to-label{
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+</style>
 
 </head>
 <body>
 	<div class="container">
-	<h1 id="topHeading">Literature Library</h1>
+	<h1 id="topHeading">SLR Tool : Crawler & Scraper</h1>
 	<div class="card text-center">
 	  <div class="card-header">
-	    <ul class="nav nav-tabs nav-fill card-header-tabs">
+	    <ul class="nav nav-tabs card-header-tabs">
 	      <li class="nav-item">
 	        <a class="nav-link" href="/">All</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link active" href="/ACM">ACM</a>
+	        <a class="nav-link active" href="/acm">ACM</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/IEEE">IEEE</a>
+	        <a class="nav-link" href="/ieee">IEEE</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/Springer">Springer</a>
+	        <a class="nav-link" href="/springer">Springer</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/ScienceDirect">ScienceDirect</a>
+	        <a class="nav-link" href="/scienceDirect">ScienceDirect</a>
 	      </li>
 	    </ul>
 	  </div>
@@ -33,6 +133,7 @@
 				<h3 class="card-title">Advanced Search</h3>
 				<p class="card-text">Search within ACM Library</p>
 				<hr>
+		<form id="acmForm" action = "/fetchBibTexFromAcm" method="POST">
 		<div class="grid-container">
 		  <div class="titleArea">
 		  
@@ -42,18 +143,18 @@
 				<h5 class="card-title">Search Within</h5>
 					<div id="rowSearchWithin1" class="rowMarginTop">
 						<select id="selectSearchWithin1" name="selectSearchWithin1">
-							<option value="AllField">Anywhere</option>
-							<option value="Title">Title</option>
-							<option value="ContribAuthor">Author</option>
-							<option value="Abstract">Abstract</option>
-							<option value="Fulltext">Full text</option>
-							<option value="Affiliation">Author Affiliation</option>
-							<option value="Keyword">Author Keyword</option>
-							<option value="ConferenceLocation">Conference Location</option>
-							<option value="ConferenceSponsor">Conference Sponsor</option>
-							<option value="Contrib">Name</option>
-							<option value="PubIdSortField">ISBN/ISSN</option>
-							<option value="DOI">DOI</option>
+							<option value="anywhere">Anywhere</option>
+							<option value="title">Title</option>
+							<option value="author">Author</option>
+							<option value="abstract">Abstract</option>
+							<option value="fullText">Full text</option>
+							<option value="authorAffiliation">Author Affiliation</option>
+							<option value="authorKeyword">Author Keyword</option>
+							<option value="conferenceLocation">Conference Location</option>
+							<option value="conferenceSponsor">Conference Sponsor</option>
+							<option value="name">Name</option>
+							<option value="isbnIssn">ISBN/ISSN</option>
+							<option value="doi">DOI</option>
 						</select>
 						<input id="textSearchWithin1" type="text" placeholder="Enter Search term" value="" name="textSearchWithin1">
 						<input id="buttonSearchWithin1" class="add-del-Button" type="button" value="+" onclick="addRowSearchWithin()"><br>
@@ -65,17 +166,17 @@
 					<h5 class="card-title">Filters</h5>
 						<div id="rowFilters1" class="rowMarginTop">
 							<select id="select1Filters1" name="selectFilters1">
-								<option value="SeriesKey" >Published in</option>
-								<option value="Artifact" >Artifact Badges</option>
-								<option value="Funding" >Funding Agency</option>
-								<option value="CCS" >CCS</option>
-								<option value="PrimaryCCS" >Primary CCS</option>
-								<option value="PublisherStored" >Publisher</option>
+								<option value="publishedIn" >Published in</option>
+								<option value="artifactBadges" >Artifact Badges</option>
+								<option value="fundingAgency" >Funding Agency</option>
+								<option value="ccs" >CCS</option>
+								<option value="primaryCcs" >Primary CCS</option>
+								<option value="publisher" >Publisher</option>
 							</select>
 							<select id="select2Filters1" name="select2Filters1">
-								<option value="And">Match All</option>
-								<option value="Or">Match Any</option>
-								<option value="Nor">Match None</option>
+								<option value="matchAll">Match All</option>
+								<option value="matchAny">Match Any</option>
+								<option value="matchNone">Match None</option>
 							</select>
 							<input id="textFilters1" type="text" name="textFilters1" placeholder="Enter Search term">
 							<input id="buttonFilters1" class="add-del-Button" type="button" value="+" onclick="addRowFilters()"><br>
@@ -87,16 +188,16 @@
 			<div id="publicationDate">
 			
 				<div class="input-group time-frame"><label for="anyDate" class="radio--primary">
-					<input id="anyDate" type="radio" name="Ppub" value="All dates" checked="checked">
+					<input id="anyDate" type="radio" name="publicationDate" value="All dates" checked="checked">
 					<span class="label-txt">All dates</span>
 					</label>
 				</div>
 				<div class="input-group time-frame">
 					<label for="staticRange" class="radio--primary" >
-					<input id="staticRange" type="radio" name="Ppub" value="">
+					<input id="staticRange" type="radio" name="publicationDate" value="">
 					<span class="label-txt">Last &nbsp &nbsp &nbsp </span>
 					</label>
-					<select id="staticRangeSelect" name="Ppub" value="" class="inline staticRange">
+					<select id="staticRangeSelect" name="publicationDate" value="" class="inline staticRange">
 						<option value="">Please Select</option>
 						<option value="[20201011 TO 20201111]">month</option>
 						<option value="[20200511 TO 20201111]">6 months</option>
@@ -105,11 +206,11 @@
 				</div>
 				<div class="input-group time-frame dateFilterSelect" >
 					<label for="customRange" class="radio--primary" >
-					<input id="customRange" type="radio" name="Ppub" value="">
+					<input id="customRange" type="radio" name="publicationDate" value="">
 					<span class="label-txt">Custom range &nbsp </span>
 					</label>
 					<span class="from-to-label" >From:</span>
-					<select id="fromMonth" name="AfterMonth" class="inline month-range">
+					<select id="fromMonth" name="afterMonth" class="inline month-range">
 						<option value="">Select Month</option>
 						<option value="1">Jan</option>
 						<option value="2">Feb</option>
@@ -124,7 +225,7 @@
 						<option value="11">Nov</option>
 						<option value="12">Dec</option>
 					</select>
-					<select id="fromYear" name="AfterYear" class="inline year-range" >
+					<select id="fromYear" name="afterYear" class="inline year-range" >
 						<option value="">Select Year</option>
 						<option value="2020">2020</option>
 						<option value="2019">2019</option>
@@ -241,7 +342,7 @@
 						<option value="1908">1908</option>
 					</select>
 						<span class="from-to-label">To:</span>
-						<select id="toMonth" name="BeforeMonth" class="inline month-range">
+						<select id="toMonth" name="beforeMonth" class="inline month-range">
 							<option value="">Select Month</option>
 							<option value="1">Jan</option>
 							<option value="2">Feb</option>
@@ -256,7 +357,7 @@
 							<option value="11">Nov</option>
 							<option value="12">Dec</option>
 						</select>
-						<select id="toYear" name="BeforeYear" class="inline year-range">
+						<select id="toYear" name="beforeYear" class="inline year-range">
 							<option value="">Select Year</option>
 							<option value="2020">2020</option>
 							<option value="2019">2019</option>
@@ -379,7 +480,7 @@
 				<button type="submit" href="#" class="btn btn-primary">Download BibTex</button><br><br>
 		  </div>
 		</div>
-
+		</form>
 	  </div>
 	</div>
 </div>
@@ -398,6 +499,7 @@
       clone.getElementsByTagName('input')[1].id = "buttonSearchWithin" + i;
 
       clone.getElementsByTagName('select')[0].name = "selectSearchWithin" + i;
+	  clone.getElementsByTagName('input')[0].name = "textSearchWithin" + i;
       clone.getElementsByTagName('input')[1].name = "textSearchWithin" + i;
       
       original.parentNode.appendChild(clone);

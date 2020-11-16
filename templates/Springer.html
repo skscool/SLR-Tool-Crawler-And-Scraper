@@ -3,133 +3,92 @@
 <head>
 	<title>SLR: Crawler & Scraper</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css')}}">
+	<link rel="stylesheet" href="/static/springerStyle.css">
+	
 </head>
 <body>
 	<div class="container">
-		<h1 id="topHeading">Literature Library</h1>
+		<h1 id="topHeading">SLR Tool : Crawler & Scraper</h1>
 	<div class="card text-center">
 	  <div class="card-header">
-	    <ul class="nav nav-tabs nav-fill card-header-tabs">
+	    <ul class="nav nav-tabs card-header-tabs">
 	      <li class="nav-item">
 	        <a class="nav-link" href="/">All</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/ACM">ACM</a>
+	        <a class="nav-link" href="/acm">ACM</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/IEEE">IEEE</a>
+	        <a class="nav-link" href="/ieee">IEEE</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link active" href="/Springer">Springer</a>
+	        <a class="nav-link active" href="/springer">Springer</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/ScienceDirect">ScienceDirect</a>
+	        <a class="nav-link" href="/scienceDirect">ScienceDirect</a>
 	      </li>
 	    </ul>
 	  </div>
 	  <div class="card-body">
 	    	
-			<div class="grid-container">
-			  <div class="searchArea">
-					<h3 class="card-title">Advanced Search</h3>
+			<form id="springerForm" action = "/fetchBibTexFromSpringer" method="POST" onsubmit="return validateMyForm(event);">
+				<div class="grid-container">
+				  <div class="searchArea">
+						<h3 class="card-title">Advanced Search</h3>
+						<hr>
+						<p class="card-text">Search within Springer Library</p>
+						<input id="searchString" name="searchString" type="text" placeholder="Enter Search String" style="width: 300px;">
+						<input id="getFiltersButton" type="button" value="Fetch Customized filters from Springer" style="width: 300px;" onclick="getFilters()">
+						<div id="message">  </div>
+						<button type="submit" href="#" class="btn btn-primary" >Download BibTex</button><br><br>
+				  </div>
+				  <div class="filterArea">
+					<h3 class="card-title">Filters</h3>
 					<hr>
-					<p class="card-text">Search within Springer Library</p>
-					<input id="searchString" name="searchString" type="text" placeholder="Enter Search String" style="width: 300px;">
-					<input id="getFiltersButton" type="button" value="Fetch Customized filters from Springer" style="width: 300px;">
-					<button type="submit" href="#" class="btn btn-primary">Download BibTex</button><br><br>
-			  </div>
-			  <div class="filterArea">
-				<h3 class="card-title">Filters</h3>
-				<hr>
-				
-				<h5 class="card-title">Literature Type</h5>
-				<div id="containerLiteratureType">	
-					<div id="rowLiteratureType1" class="rowMarginTop">
-						<select id="selectLiteratureType1" name="selectLiteratureType1">
-							<option value="AllField">Anywhere</option>
-							<option value="Title">Title</option>
-							<option value="ContribAuthor">Author</option>
-							<option value="Abstract">Abstract</option>
-							<option value="Fulltext">Full text</option>
-							<option value="Affiliation">Author Affiliation</option>
-							<option value="Keyword">Author Keyword</option>
-							<option value="ConferenceLocation">Conference Location</option>
-							<option value="ConferenceSponsor">Conference Sponsor</option>
-							<option value="Contrib">Name</option>
-							<option value="PubIdSortField">ISBN/ISSN</option>
-							<option value="DOI">DOI</option>
-						</select>
-						<input id="buttonLiteratureType1" type="button" value="+" onclick="addRowLiteratureType()" class="add-del-Button"><br>
-					</div>
-				</div>
-				
-				<div id="containerSubcategory">
-				<h5 class="card-title">Sub-Category</h5>
-					<div id="rowSubcategory1" class="rowMarginTop">
-						<select id="selectSubcategory1" name="selectSubcategory1">
-							<option value="AllField">Anywhere</option>
-							<option value="Title">Title</option>
-							<option value="ContribAuthor">Author</option>
-							<option value="Abstract">Abstract</option>
-							<option value="Fulltext">Full text</option>
-							<option value="Affiliation">Author Affiliation</option>
-							<option value="Keyword">Author Keyword</option>
-							<option value="ConferenceLocation">Conference Location</option>
-							<option value="ConferenceSponsor">Conference Sponsor</option>
-							<option value="Contrib">Name</option>
-							<option value="PubIdSortField">ISBN/ISSN</option>
-							<option value="DOI">DOI</option>
-						</select>
-						<input id="buttonSubcategory1" type="button" value="+" onclick="addRowSubcategory()" class="add-del-Button"><br>
-					</div>
-				</div>
-				
-				<div id="containerReleaseDate">
-				<h5 class="card-title">Release Date</h5>
-					<div id="rowReleaseDate1" class="rowMarginTop">
-						<select id="selectReleaseDate1" name="selectReleaseDate1">
-							<option value="AllField">Anywhere</option>
-							<option value="Title">Title</option>
-							<option value="ContribAuthor">Author</option>
-							<option value="Abstract">Abstract</option>
-							<option value="Fulltext">Full text</option>
-							<option value="Affiliation">Author Affiliation</option>
-							<option value="Keyword">Author Keyword</option>
-							<option value="ConferenceLocation">Conference Location</option>
-							<option value="ConferenceSponsor">Conference Sponsor</option>
-							<option value="Contrib">Name</option>
-							<option value="PubIdSortField">ISBN/ISSN</option>
-							<option value="DOI">DOI</option>
-						</select>
-						<input id="buttonReleaseDate1" type="button" value="+" onclick="addRowReleaseDate()" class="add-del-Button"><br>
-					</div>
-				</div>
-				
-				<div id="containerLanguages">
-				<h5 class="card-title">Languages</h5>
-					<div id="rowLanguages1" class="rowMarginTop">
-						<select id="selectLanguages1" name="selectLanguages1">
-							<option value="AllField">Anywhere</option>
-							<option value="Title">Title</option>
-							<option value="ContribAuthor">Author</option>
-							<option value="Abstract">Abstract</option>
-							<option value="Fulltext">Full text</option>
-							<option value="Affiliation">Author Affiliation</option>
-							<option value="Keyword">Author Keyword</option>
-							<option value="ConferenceLocation">Conference Location</option>
-							<option value="ConferenceSponsor">Conference Sponsor</option>
-							<option value="Contrib">Name</option>
-							<option value="PubIdSortField">ISBN/ISSN</option>
-							<option value="DOI">DOI</option>
-						</select>
-						<input id="buttonLanguages1" type="button" value="+" onclick="addRowLanguages()" class="add-del-Button"><br>
-					</div>
-				</div>
 					
-			  </div>
-			</div>
-
+					<h5 class="card-title">Literature Type</h5>
+					<div id="containerLiteratureType">	
+						<div id="rowLiteratureType1" class="rowMarginTop">
+							<select id="selectLiteratureType1" name="selectLiteratureType1">
+								<option value="" selected disabled hidden>Select Type Of Literature</option>
+							</select>
+							<input disabled id="buttonLiteratureType1" type="button" value="+" onclick="addRowLiteratureType()" ><br>
+						</div>
+					</div>
+					
+					<div id="containerSubcategory">
+					<h5 class="card-title">Sub-Category</h5>
+						<div id="rowSubcategory1" class="rowMarginTop">
+							<select id="selectSubcategory1" name="selectSubcategory1">
+								<option value="" selected disabled hidden>Select Subcategory</option>
+							</select>
+							<input id="buttonSubcategory1" type="button" value="+" onclick="addRowSubcategory()" class="add-del-Button"><br>
+						</div>
+					</div>
+					
+					<div id="containerReleaseDate">
+					<h5 class="card-title">Release Date</h5>
+						<div id="rowReleaseDate1" class="rowMarginTop">
+							<select id="selectReleaseDate1" name="selectReleaseDate1">
+								<option value="" selected disabled hidden>Select Release Date</option>
+							</select>
+							<input id="buttonReleaseDate1" type="button" value="+" onclick="addRowReleaseDate()" class="add-del-Button"><br>
+						</div>
+					</div>
+					
+					<div id="containerLanguages">
+					<h5 class="card-title">Languages</h5>
+						<div id="rowLanguages1" class="rowMarginTop">
+							<select id="selectLanguages1" name="selectLanguages1">
+								<option value="" selected disabled hidden>Select Language</option>
+							</select>
+							<input id="buttonLanguages1" type="button" value="+" onclick="addRowLanguages()" class="add-del-Button"><br>
+						</div>
+					</div>
+						
+				  </div>
+				</div>
+			</form>
 	  </div>
 	</div>
 </div>
@@ -234,6 +193,6 @@
   }
 
 </script>
-
+<script src="/static/springer.js"></script>
 </body>
 </html>
