@@ -30,24 +30,6 @@ def ScienceDirect():
 #----------------------------------------------Springer specific code----------------------------------------------------------------------------------------
 
 
-@app.route('/receive_data',methods =['POST'])
-def fun():
-	print("from receive data", request.form)
-	# print("sdfadsf = ",request.form['yearStart'])
-	getJSON(request.form.to_dict())
-	# file = open("temp.txt","w")
-	# file.write(request.form['input_data'])
-	return redirect('/')
-
-@app.route('/download')
-def downloadFile ():
-    path = os.getcwd()+"/temp.txt"
-    print("Sending file...")
-    return send_file(path, as_attachment=True)
-
-
-if __name__ == '__main__':
-	app.run(port = 8888, debug = True)
 
 #data structure to convert the search filters to respective url
 subCategoryList = list()
@@ -354,3 +336,23 @@ def isSearchValid():
 		return "invalid"
 
 #--------------------------------------------------------Springer specific ends here---------------------------------------------------------------------------------
+
+
+@app.route('/receive_data',methods =['POST'])
+def fun():
+	print("from receive data", request.form)
+	# print("sdfadsf = ",request.form['yearStart'])
+	getJSON(request.form.to_dict())
+	# file = open("temp.txt","w")
+	# file.write(request.form['input_data'])
+	return redirect('/')
+
+@app.route('/download')
+def downloadFile ():
+    path = os.getcwd()+"/temp.txt"
+    print("Sending file...")
+    return send_file(path, as_attachment=True)
+
+
+if __name__ == '__main__':
+	app.run(port = 8888, debug = True)
