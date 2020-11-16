@@ -29,11 +29,6 @@ def ScienceDirect():
 
 #----------------------------------------------Springer specific code----------------------------------------------------------------------------------------
 
-#goto springer page
-@app.route('/springer')
-def springer():
-	return render_template('springer.html')
-
 
 @app.route('/receive_data',methods =['POST'])
 def fun():
