@@ -11,15 +11,15 @@ def home():
 
 @app.route('/acm')
 def acm():
-	return render_template('acm.html')
+	return render_template('ACM.html')
 
 @app.route('/springer')
 def springer():
-	return render_template('springer.html')
+	return render_template('Springer.html')
 
 @app.route('/ieee')
 def IEEE():
-	return render_template('ieee.html')
+	return render_template('IEEE.html')
 
 @app.route('/scienceDirect')
 def ScienceDirect():
