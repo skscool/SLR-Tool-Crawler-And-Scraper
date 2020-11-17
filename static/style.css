@@ -1,4 +1,4 @@
-input[type="text"],
+/*input[type="text"],
 select.form-control {
     background: transparent;
     border: none;
@@ -12,20 +12,20 @@ input[type="text"]:focus,
 select.form-control:focus {
     -webkit-box-shadow: none;
     box-shadow: none;
-}
+}*/
 
 body{
-    /* background: #005AA7;  /* fallback for old browsers */
-    /* background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
-    /* background: linear-gradient(to top, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-image: url('background.jpg');
+    background: #005AA7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background-image: url('background.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;*/
 }
 
-.card{
+/*.card{
     opacity: 0.96;
-}
+}*/
 
 #topHeading{
     color: white;
@@ -116,48 +116,52 @@ input:hover::-webkit-input-placeholder{
     margin-left: 10px;
 }
 
+/*
 label {
     font-size: 80%;
 }
+*/
+
+    /*1rem = 16px*/
 
 /* Small devices (landscape phones, 544px and up) */
-
+/*
 @media (min-width: 544px) {
     h1 {
         font-size: 1.5rem;
     }
-    /*1rem = 16px*/
-}
+    
+}*/
 
 
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-
+/*
 @media (min-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1rem;
     }
-    /*1rem = 16px*/
-}
 
+}
+*/
 
 /* Large devices (desktops, 992px and up) */
-
+/*
 @media (min-width: 992px) {
     h1 {
         font-size: 2.5rem;
     }
-    /*1rem = 16px*/
 }
-
+*/
 
 /* Extra large devices (large desktops, 1200px and up) */
-
+/*
 @media (min-width: 1200px) {
     h1 {
         font-size: 3rem;
     }
-    /*1rem = 16px*/
 }
+
+*/
 /* input:focus~.floating-label,
 input:not(:focus):valid~.floating-label {
     top: 8px;
