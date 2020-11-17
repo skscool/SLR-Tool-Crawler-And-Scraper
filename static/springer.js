@@ -100,7 +100,6 @@ function fetchFiltersFromSpringer(url, params) {
 }
 
 
-
 function getFilters(){
 	if(searchString.value == ""){
 		searchString.placeholder = "Search String Required!";
@@ -126,17 +125,14 @@ function validateMyForm(event){
 		return false;
 	}
 	
-	var url = "/isSearchValid";								
-	var string = searchString.value;
-	var params = "searchString=" + string;
-	//alert("here");
+	var url = "/isSearchValid";				
+	const formx = document.querySelector('form');
+	const data = Object.fromEntries(new FormData(formx).entries()); 
 	var stateOfResult = false;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			////alert("response received!");
 			var response = this.responseText;				//response from server has all possible types of filter each type with a differet delimiter
-			//alert(response);
 			if(response == 'valid'){
 				messageBox.innerHTML = "Result found! Fetching BibTex...";
 				messageBox.className = 'pass';
@@ -146,20 +142,16 @@ function validateMyForm(event){
 			}else if(response == 'invalid'){
 				messageBox.innerHTML = "No result found for search!";
 				messageBox.className = 'fail';
-				//alert('false');
 				stateOfResult = false;
 				return;
 			}
 			stateOfResult = false;
 	   }
 	};
-	xhttp.open("GET", url+"?"+params, true);		//make a get request to the url with param as search string from input box
-	xhttp.send();
-	
+	xhttp.open("POST", url, true);	//make a get request to the url with payload as form data
+	xhttp.send(JSON.stringify(data));
 
 		messageBox.innerHTML = "Searching in Springer...";
 		messageBox.className = 'pass';
-		//alert("ajax returned true");
-	
-	//return stateOfResult;
+
 }

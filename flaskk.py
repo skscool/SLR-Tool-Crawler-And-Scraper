@@ -29,8 +29,6 @@ def ScienceDirect():
 
 #----------------------------------------------Springer specific code----------------------------------------------------------------------------------------
 
-
-
 #data structure to convert the search filters to respective url
 subCategoryList = list()
 categoryToLinkdataDICT = {}
@@ -60,12 +58,10 @@ def fetchFilters():
 	languageToLinkdataDICT.clear()
 	languageToLinkdataDICT["---none---"] = "---none---"
 
-
 	typeFilterList.clear()									#---------change 5-----clear filter value to link dict & add an entry for users 
 	typeToLinkdataDICT.clear()								#----------------------who don't wan't to apply that filter
 	typeToLinkdataDICT["---none---"] = "---none---"
-	
-	
+		
 	searchString = request.args.get('searchString')
 	print("searchString :",searchString)
 	from bs4 import BeautifulSoup as soup
@@ -91,7 +87,6 @@ def fetchFilters():
 	for c in categories:
 		categoryToLinkdataDICT[subCategoryList[i]] = c['onmousedown'].split('\'')[1]
 		i+=1
-	#print(categoryToLinkdataDICT)
 	
 	#get date filter and link for dropdown
 	dates = page_soup.find('div', {'id': 'facet-pdate'}).findAll('span', {'class': 'facet-title'})
@@ -106,7 +101,6 @@ def fetchFilters():
 	for d in dates:
 		dateToLinkdataDICT[dateFilterList[i]] = d['onmousedown'].split('\'')[1]
 		i+=1
-	#print(dateToLinkdataDICT)
 	
 	
 	#get language filter and link for dropdown
@@ -122,10 +116,6 @@ def fetchFilters():
 	for l in languages:
 		languageToLinkdataDICT[languageFilterList[i]] = l['onmousedown'].split('\'')[1]
 		i+=1
-	#print(languageToLinkdataDICT)
-	
-	
-	
 	
 	#get type filter and link for dropdown				#---------------change 6-------------- fetch filter values and their link info
 	types = page_soup.find('div', {'id': 'facet-type'}).findAll('span', {'class': 'facet-title'})
@@ -140,15 +130,8 @@ def fetchFilters():
 	for t in types:
 		typeToLinkdataDICT[typeFilterList[i]] = t['onmousedown'].split('\'')[1]
 		i+=1
-	#print(languageToLinkdataDICT)
 	
-	
-	print("----------------------------->")
-	print(response);
 	return response
-
-
-
 
 
 #download the BibTex in server-side
@@ -161,7 +144,7 @@ def fetchBibTexFromSpringer():
 	
 	print("form data =", request.form)
 
-		#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
+	#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
 	stringToSearch = request.form['searchString']
 	
 	#prefix link for search
@@ -173,7 +156,6 @@ def fetchBibTexFromSpringer():
 			filter_subCategory_urldata = categoryToLinkdataDICT[request.form[x]]
 			if(filter_subCategory_urldata != "---none---"):
 				http = http + '&facet-subj=subj__'+ filter_subCategory_urldata 
-			#print(x, request.form[x])
 		
 		elif x[:-1] == 'selectReleaseDate':
 			filter_date_urldata = dateToLinkdataDICT[request.form[x]]
@@ -196,14 +178,12 @@ def fetchBibTexFromSpringer():
 	html = requests.get(http + '&submit=Submit').text
 	print("http is ---------------------->")
 	print(http)
-	#html = requests.get('https://www.springer.com/in/search?dnc=true&facet-subj=subj__'+filter_urldata+'&facet-type=type__book&query=' + stringToSearch + '&submit=Submit').text
-
 	
 	page_soup = soup(html,'html.parser')
 	noOfSearchPages = page_soup.find('span', {'class': 'number-of-pages'}).string.strip()
 			
 	noOfSearchPages = int(noOfSearchPages)+1
-	print("noOfSearchPages :",noOfSearchPages)
+	print("noOfSearchPages :",noOfSearchPages-1)
 	
 	#list of Parsed BibTex dictionary, each item can become vaule part of JSON object
 	bibs = []
@@ -248,9 +228,7 @@ def fetchBibTexFromSpringer():
 					bib_dict[key] = value
 					bibtex = bibtex[ind+2:]
 				bibs.append(bib_dict)         #add current bibtex dictionary to global list
-				#print(bib_dict)
-	#print(bibs)
-
+				
 	#-----------------------------------------------------file writing stuff----------------------------------------------------------------
 	itemCount = len(bibs)
 	output_json = {}                    #json equivalent of the list of bibtex
@@ -266,7 +244,6 @@ def fetchBibTexFromSpringer():
 	return redirect('/sendDownloadedFile')
 
 
-
 #send file to the client
 @app.route('/sendDownloadedFile')
 def sendDownloadedFile ():
@@ -275,68 +252,66 @@ def sendDownloadedFile ():
     return send_file(path, as_attachment=True)
 
 
-
-
-
 #Send error message to client if the search result is empty i.e. springer couldn't find result for given query/filter
-@app.route('/isSearchValid')
+@app.route('/isSearchValid', methods =['POST'])
 def isSearchValid():
 	from bs4 import BeautifulSoup as soup
 	import requests
 	import json
 	import math
+	import ast		#for converting byte received from client (form data) to python dictionary
 	
-	#print(type(request.form), request.form)
-
-		#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
-	stringToSearch = request.args.get('searchString')
+	print("inside is search valid\n\n\n")
+	print(type(request.data), request.data)
+	
+	byte_str = request.data
+	dict_str = byte_str.decode("UTF-8")
+	mydata = ast.literal_eval(dict_str)				#form data to validate by visiting link
+	print("form data to verify = \n",repr(mydata))
+	print(mydata['searchString'])
+	
+	#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
+	stringToSearch = mydata['searchString']
 	
 	#prefix link for search
 	http = 'https://www.springer.com/in/search?dnc=true&facet-type=type__book&query=' + stringToSearch
+
 	
-	
-	for x in request.form:
+	for x in mydata:
 		if x[:-1] == 'selectSubcategory':
-			filter_subCategory_urldata = categoryToLinkdataDICT[request.form[x]]
+			filter_subCategory_urldata = categoryToLinkdataDICT[mydata[x]]
 			if(filter_subCategory_urldata != "---none---"):
 				http = http + '&facet-subj=subj__'+ filter_subCategory_urldata 
-			#print(x, request.form[x])
 		
 		elif x[:-1] == 'selectReleaseDate':
-			filter_date_urldata = dateToLinkdataDICT[request.form[x]]
+			filter_date_urldata = dateToLinkdataDICT[mydata[x]]
 			if(filter_date_urldata != "---none---"):
 				http = http + '&facet-pdate=pdate__' + filter_date_urldata
 		
 		elif x[:-1] == 'selectLanguages': 			
-			filter_language_urldata = languageToLinkdataDICT[request.form[x]]		
+			filter_language_urldata = languageToLinkdataDICT[mydata[x]]		
 			if(filter_language_urldata != "---none---"):
 				http = http + '&facet-lan=lan__' + filter_language_urldata	
 		
 		elif x[:-1] == 'selectLiteratureType':
-			filter_type_urldata = typeToLinkdataDICT[request.form[x]]
+			filter_type_urldata = typeToLinkdataDICT[mydata[x]]
 			if(filter_type_urldata != "---none---"):							#--------change 8------- update search url if user applies this filter
 				http = http + '&facet-type=categorybook__' + filter_type_urldata		
 				
 	
-	
 	#http = http + '&submit=Submit'		#this is the full link
 	html = requests.get(http + '&submit=Submit').text
-	print("http ---------------------->")
+	print("checking if valid search, link = ")
 	print(http)
-	#html = requests.get('https://www.springer.com/in/search?dnc=true&facet-subj=subj__'+filter_urldata+'&facet-type=type__book&query=' + stringToSearch + '&submit=Submit').text
-
 	
 	page_soup = soup(html,'html.parser')
 	try:
 		noOfSearchPages = page_soup.find('span', {'class': 'number-of-pages'}).string.strip()
-		#print("ssssssssssssssssssearch vallllllllllllllllllllllllllliiiddd")
 		return "valid"
 	except:
-		#print("ssssssssssssssssssearch iiiiiiiinnnnnnnnnnnnnnnnnnnnnnvallllllllllllllllllllllllllliiiddd")
 		return "invalid"
 
 #--------------------------------------------------------Springer specific ends here---------------------------------------------------------------------------------
-
 
 @app.route('/receive_data',methods =['POST'])
 def fun():
