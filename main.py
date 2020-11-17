@@ -191,7 +191,8 @@ def getJSONACM(searchInput):
   searchInput = removeNone(searchInput)
   searchInput = processInput(searchInput)
   print("\n\n\n", searchInput)
-  bibTex = getACMRecords(searchInput.copy())
+  bibTex = []
+  bibTex = getACMRecords(searchInput.copy(), bibTex)
   bibToJson(searchInput, bibTex)
 
 def getJSONIEEE(searchInput):
@@ -199,12 +200,14 @@ def getJSONIEEE(searchInput):
   searchInput = removeNone(searchInput)
   searchInput = processInput(searchInput)
   print("\n\n\n", searchInput)
-  bibTex = getIEEERecords(searchInput.copy())
+  bibTex = []
+  bibTex = getIEEERecords(searchInput.copy(), bibTex)
   bibToJson(searchInput, bibTex)
 
 def getJSONScienceDirect(searchInput):
   # print("\nfrom getJSONScienceDirect", searchInput)
   searchInput = removeNone(searchInput)
   print("\n\n\n", searchInput)
-  bibTex = getScienceDirectRecords(searchInput.copy())
+  bibTex = []
+  bibTex = getScienceDirectRecords(searchInput.copy(), bibTex)
   bibToJson(searchInput, bibTex)
