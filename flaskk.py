@@ -27,7 +27,7 @@ def ScienceDirect():
 
 
 
-#----------------------------------------------Springer specific code----------------------------------------------------------------------------------------
+#----------------------------------------------Springer specific code-----------------------------------------------------------------------------
 
 #data structure to convert the search filters to respective url
 subCategoryList = list()
