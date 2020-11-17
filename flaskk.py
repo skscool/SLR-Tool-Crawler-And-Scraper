@@ -338,14 +338,33 @@ def isSearchValid():
 #--------------------------------------------------------Springer specific ends here---------------------------------------------------------------------------------
 
 
-@app.route('/receive_data',methods =['POST'])
-def fun():
-	print("from receive data", request.form)
+@app.route('/fetchAll',methods =['POST'])
+def fetchAll():
+	print("\n\nfrom fetch all", request.form)
 	# print("sdfadsf = ",request.form['yearStart'])
-	getJSON(request.form.to_dict())
+	getJSONAll(request.form.to_dict())
 	# file = open("temp.txt","w")
 	# file.write(request.form['input_data'])
-	return redirect('/')
+	return redirect('/sendDownloadedFile')
+	# return render_template('landing.html')
+
+@app.route('/fetchACM',methods =['POST'])
+def fetchACM():
+	print("\n\nfrom fetch ACM", request.form)
+	getJSONACM(request.form.to_dict())
+	return redirect('/sendDownloadedFile')
+
+@app.route('/fetchIEEE',methods =['POST'])
+def fetchIEEE():
+	print("\n\nfrom fetch IEEE", request.form)
+	getJSONIEEE(request.form.to_dict())
+	return redirect('/sendDownloadedFile')
+
+@app.route('/fetchScienceDirect',methods =['POST'])
+def fetchScienceDirect():
+	print("\n\nfrom fetch Science Direct", request.form)
+	getJSONScienceDirect(request.form.to_dict())
+	return redirect('/sendDownloadedFile')
 
 @app.route('/download')
 def downloadFile ():

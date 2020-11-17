@@ -35,7 +35,6 @@ def getSearchString(searchInput):
 
 def getRecordIds(searchString):
   print("search string", searchString)
-  print('''"((\\"All Metadata\\":moon) AND \\"All Metadata\\":mars)"''')
   headers = {
       'Content-Type': 'application/json',
       'Origin': 'https://ieeexplore.ieee.org',
@@ -45,8 +44,6 @@ def getRecordIds(searchString):
   totalPages = pageNo
   while(pageNo<=totalPages):
     try:
-      # data = searchString + str(pageNo) +'}'
-      # "queryText":"((\\"All Metadata\\":moon) AND \\"All Metadata\\":mars)",
       data = '''{"action":"search",
       "newsearch":true,
       "matchBoolean":true,
@@ -69,7 +66,7 @@ def getRecordIds(searchString):
       totalPages = math.ceil(totalRecords/100)
       recordsCount = min(totalRecords - (pageNo-1)*100, 100)
       records = response['records']
-      print(totalPages, recordsCount, totalRecords)
+      print("totalPages:",totalPages, "totalRecords:", totalRecords, "pageNo:", pageNo, "records count: ", recordsCount)
       # print(response)
       for recordInd in range(0, recordsCount):
         # print(records[0]['documentLink'][splitInd:-1])
@@ -98,7 +95,7 @@ def getBibTex(recordIds):
       'citations-format' :'citation-abstract'
   }
   url = 'https://ieeexplore.ieee.org/xpl/downloadCitations'
-  for recordId in recordIds[:10]:
+  for recordId in recordIds:
     try:
       print(recordId)
       data['recordIds'] = str(recordId)
@@ -138,7 +135,7 @@ def getBibTex(recordIds):
     except Exception as e:
       print(repr(e), 'BibTeX accessing error :', (recordId))
       continue
-  print(len(bibs))
+  print("from ieee", len(bibs))
   return bibs
 
 

@@ -38,6 +38,7 @@ def getUrls(searchString):
       offset = "&offset=" + str(off)
       off += 100
       sd_url = 'https://www.sciencedirect.com/search?' + searchString + show + offset
+      print(sd_url)
       try:
         r = session.get(sd_url)
         page_soup = soup(r.text, "html.parser")
@@ -75,7 +76,7 @@ def getBibTex(individual_urls):
   }
 
   bibs_responses = []
-  for url in individual_urls[:10]:
+  for url in individual_urls:
     ind = len(url) - 1 - url[::-1].index('/')
     pii = url[ind+1:]
     print(pii)
@@ -86,7 +87,7 @@ def getBibTex(individual_urls):
 
   print(len(bibs_responses))
   bibs = []
-  for bib in bibs_responses[:10]:
+  for bib in bibs_responses:
     # print(bib)
     try:
       bibtex = bib.strip("}").strip("\t ") + '\n'

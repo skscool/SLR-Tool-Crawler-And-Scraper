@@ -18,6 +18,7 @@ def getSearchString(searchInput):
 		searchString += '&field' + str(ind) + '=' + key + '&text' + str(ind) + '=' + val 
 	if date != "":
 		searchString += '&'+ date
+	searchString = searchString.replace(' ', '%20')
 	return searchString
 
 def getDOI(citation):
@@ -147,7 +148,7 @@ def scrape(parsed_html):
 def getACMRecords(searchInput):
 	searchString = getSearchString(searchInput)
 	print("from get acm records", searchString)
-	url = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl" + searchString
+	url = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl" + searchString + '&pageSize=50'
 	print(url)
 
 	x = requests.get(url)
@@ -161,12 +162,13 @@ def getACMRecords(searchInput):
 	# Extract first page
 	bibs = scrape(parsed_html)
 	# return
-	for i in range(1,totalPages+1):
+	for i in range(1,totalPages):
 		print("Page ",i)
 		next_page = url + "&pageSize=50&startPage="+str(i)
+		print(next_page)
 		x = requests.get(next_page)
 		parsed_html = sp(x.text,"html.parser")
-		bibs.append(scrape(parsed_html))
-	print(len(bibs))
+		bibs += scrape(parsed_html)
+	print("total bibs from acm", len(bibs))
 	return bibs
 
