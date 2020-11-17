@@ -5,6 +5,7 @@ from springer import *
 import copy
 import json
 import multidict
+import threading 
 
 def bibToJson(searchInput, bibs):
   print("total results", len(bibs))
@@ -145,15 +146,29 @@ def inputToSpringer(searchInput):
   print("input to Springer", searchInput)
   return searchInput
 
-
 def getJSONAll(searchInput):
   print("\nfrom getJSONALL", searchInput)
-  bibTex = []
+  bibTex = [[], [], [], []]
+  t = [None]*4
   searchInput = removeNone(searchInput)
-  bibTex += getACMRecords(inputToACM(searchInput.copy()))
-  bibTex += getIEEERecords(inputToIEEE(searchInput.copy()))
-  bibTex += getScienceDirectRecords(inputToScienceDirect(searchInput.copy()))
-  bibTex += getSpringerRecords(inputToSpringer(searchInput.copy()))
+  t[0] = threading.Thread(target=getACMRecords, args=(inputToACM(searchInput.copy()),bibTex[0])) 
+  t[1] = threading.Thread(target=getIEEERecords, args=(inputToIEEE(searchInput.copy()),bibTex[1]))
+  t[2] = threading.Thread(target=getScienceDirectRecords, args=(inputToScienceDirect(searchInput.copy()),bibTex[2])) 
+  t[3] = threading.Thread(target=getSpringerRecords, args=(inputToSpringer(searchInput.copy()),bibTex[3]))
+  for i in range(4):
+    t[i].start()
+  for i in range(4):
+    t[i].join()
+  print(len(bibTex[0]))
+  print(len(bibTex[1]))
+  print(len(bibTex[2]))
+  print(len(bibTex[3]))
+
+  # bibTex += getACMRecords(inputToACM(searchInput.copy()))
+  # bibTex += getIEEERecords(inputToIEEE(searchInput.copy()))
+  # bibTex += getScienceDirectRecords(inputToScienceDirect(searchInput.copy()))
+  # bibTex += getSpringerRecords(inputToSpringer(searchInput.copy()))
+  bibTex = bibTex[0]+bibTex[1]+bibTex[2]+bibTex[3]
   bibToJson(searchInput, bibTex)
 
 def processInput(searchInput):

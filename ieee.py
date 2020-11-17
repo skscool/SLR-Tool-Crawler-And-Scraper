@@ -138,15 +138,15 @@ def getBibTex(recordIds):
       bibtex = bibtex[ind + 1:]
     # print(bib_dict)
     bibs.append(bib_dict)
-  print("from ieee", len(bibs))
   return bibs
 
 
-def getIEEERecords(searchInput):
+def getIEEERecords(searchInput, bibTex):
   searchString = getSearchString(searchInput)
   print(searchString)
   recordIds = getRecordIds(searchString)
-  bibTex = getBibTex(recordIds)
+  bibTex += getBibTex(recordIds)
+  print("total bibs from ieee", len(bibTex))
   return bibTex
 
 # getIEEERecords("hgf")

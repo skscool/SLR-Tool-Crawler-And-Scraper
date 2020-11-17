@@ -100,9 +100,9 @@ def getBibTex(stringToSearch):
 	return bibs
 
 
-def getSpringerRecords(searchInput):
+def getSpringerRecords(searchInput, bibTex):
 	searchString = getSearchString(searchInput)
 	print(searchString)
-	bibTex = getBibTex(searchString)
-	print("from springer", len(bibTex))
+	bibTex += getBibTex(searchString)
+	print("total bibs from springer", len(bibTex))
 	return bibTex

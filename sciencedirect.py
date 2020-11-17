@@ -129,14 +129,14 @@ def getBibTex(individual_urls):
       break
       # print(e, bib)
       continue
-  print("ScienceDirect bibTex length", len(bibs))
   return bibs
 
-def getScienceDirectRecords(searchInput):
+def getScienceDirectRecords(searchInput, bibTex):
   searchString = getSearchString(searchInput)
   print(searchString)
   recordIds = getUrls(searchString)
-  bibTex = getBibTex(recordIds)
+  bibTex += getBibTex(recordIds)
+  print("total bibs from scienceDirect", len(bibTex))
   return bibTex
 
 # getScienceDirectRecords("hgf")
