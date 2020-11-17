@@ -27,35 +27,45 @@ def getUrls(searchString):
     show = '&show=100'
     sd_url = 'https://www.sciencedirect.com/search?' + searchString
     print(sd_url)
-    #https://www.sciencedirect.com/search?qs=data%20science%20star&authors=divya
+    # https://www.sciencedirect.com/search?qs=data%20science&authors=divya&tak=star
     r = session.get(sd_url)
-    page_soup = soup(r.text, "html.parser")
-    result_count = 0
-    result_count = int((page_soup.find("span", {"class" : "search-body-results-text"}).text.strip().split()[0]).replace(',', ''))
-    print("results", result_count)
-    while(off<result_count):
-      print(off)
-      offset = "&offset=" + str(off)
-      off += 100
-      sd_url = 'https://www.sciencedirect.com/search?' + searchString + show + offset
-      print(sd_url)
-      try:
-        r = session.get(sd_url)
-        page_soup = soup(r.text, "html.parser")
-        containers = page_soup.findAll("a", {"class" : "result-list-title-link"})
-        url_prefix = "https://www.sciencedirect.com"
-        for container in containers:
-          try:
-            container = container["href"];
-            paper_url = url_prefix + container
-            individual_urls.append(paper_url)
-            # print(paper_url)
-          except Exception as e:
-             print(repr(e), 'Document link not available')
-      except Exception as e:
-        print(repr(e), 'Page accessing error :', off/100+1)
   except Exception as e:
     print(repr(e), 'First page accessing error')
+    return individual_urls
+  page_soup = soup(r.text, "html.parser")
+  result_count = 0
+  results = "0"
+  try:
+    results = page_soup.find("span", {"class" : "search-body-results-text"}).text
+  except:
+    try:
+      results = page_soup.find("h1", {"class" : "search-body-results-text"}).text
+    except:
+      return individual_urls
+  result_count = int((results.strip().split()[0]).replace(',', ''))
+  print("results", result_count)
+  while(off<result_count):
+    print(off)
+    offset = "&offset=" + str(off)
+    off += 100
+    sd_url = 'https://www.sciencedirect.com/search?' + searchString + show + offset
+    print(sd_url)
+    try:
+      r = session.get(sd_url)
+      page_soup = soup(r.text, "html.parser")
+      containers = page_soup.findAll("a", {"class" : "result-list-title-link"})
+    except Exception as e:
+      print(repr(e), 'Page accessing error :', off/100+1)
+      continue
+    url_prefix = "https://www.sciencedirect.com"
+    for container in containers:
+      try:
+        container = container["href"];
+        paper_url = url_prefix + container
+        individual_urls.append(paper_url)
+        # print(paper_url)
+      except Exception as e:
+          print(repr(e), 'Document link not available')
   print(len(individual_urls))
   return individual_urls
 

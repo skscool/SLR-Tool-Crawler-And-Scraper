@@ -57,10 +57,11 @@ def getRecordIds(searchString):
       "pageNumber":''' + str(pageNo) +'}'
 
       response = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, data=str(data))
-      # print(response)
+      # print("received response")
       response = response.json()
       # print(response)
       # print(len(response['records']))
+      # print("processing response")
       splitInd = len('/document/')
       totalRecords = response['totalRecords']
       totalPages = math.ceil(totalRecords/100)
@@ -68,16 +69,18 @@ def getRecordIds(searchString):
       records = response['records']
       print("totalPages:",totalPages, "totalRecords:", totalRecords, "pageNo:", pageNo, "records count: ", recordsCount)
       # print(response)
-      for recordInd in range(0, recordsCount):
-        # print(records[0]['documentLink'][splitInd:-1])
-        # print(recordInd)
-        try:
-          recordIds.append(records[recordInd]['documentLink'][splitInd:-1])
-          # print(recordInd, records[recordInd]['documentLink'][splitInd:-1])
-        except Exception as e:
-          print(repr(e), 'Document link not available :', recordInd+(pageNo-1)*100+1)
     except Exception as e:
-        print(repr(e), 'Page accessing error :', (pageNo))
+      print(repr(e), 'No such page exists :', (pageNo))
+      pageNo+=1
+      continue
+    for recordInd in range(0, recordsCount):
+      # print(records[0]['documentLink'][splitInd:-1])
+      # print(recordInd)
+      try:
+        recordIds.append(records[recordInd]['documentLink'][splitInd:-1])
+        # print(recordInd, records[recordInd]['documentLink'][splitInd:-1])
+      except Exception as e:
+        print(repr(e), 'Document link not available :', recordInd+(pageNo-1)*100+1)
     pageNo+=1
   print(len(recordIds))
   return recordIds
@@ -101,40 +104,40 @@ def getBibTex(recordIds):
       data['recordIds'] = str(recordId)
       response = requests.post(url, headers=headers, data=data) 
       bib = response.text
-      # print(bib)
-      bib = bib.replace("<br>", "")
-      # print(bib)
-      bibtex = bib.strip("}").strip("\t ") + '\n'
-      # print(bibtex)
-      ind = bibtex.index("{")
-      bib_dict = {}
-      bib_dict["type"] = bibtex[:ind]
-      bibtex = bibtex[ind+1:]
-      ind = bibtex.index("\n")
-      bib_dict["id"] = bibtex[:ind-1]
-      bibtex = bibtex[ind+1:]
-      while(bibtex != "" and bibtex != "\n"): #len(bibtext) > 3):
-        # print(bibtex)
-        # print("bib", bibtex, len(bibtex))
-        ind = bibtex.index("\n")
-        if bibtex[:8] == 'abstract':
-          ind = len(bibtex)
-          bibtex = bibtex.replace('\n', '')
-        attribute = bibtex[:ind].strip("\t,")
-        # print("attr",attribute)
-        try:
-          ind_attr = attribute.index("=")
-        except Exception as e:
-          bibtex = bibtex[1:]
-          continue
-        # print(ind_attr)
-        bib_dict[attribute[:ind_attr].strip()] = attribute[ind_attr+1:].strip('{} \r,')
-        bibtex = bibtex[ind + 1:]
-      # print(bib_dict)
-      bibs.append(bib_dict)
     except Exception as e:
       print(repr(e), 'BibTeX accessing error :', (recordId))
       continue
+    # print(bib)
+    bib = bib.replace("<br>", "")
+    # print(bib)
+    bibtex = bib.strip("}").strip("\t ") + '\n'
+    # print(bibtex)
+    ind = bibtex.index("{")
+    bib_dict = {}
+    bib_dict["type"] = bibtex[:ind]
+    bibtex = bibtex[ind+1:]
+    ind = bibtex.index("\n")
+    bib_dict["id"] = bibtex[:ind-1]
+    bibtex = bibtex[ind+1:]
+    while(bibtex != "" and bibtex != "\n"): #len(bibtext) > 3):
+      # print(bibtex)
+      # print("bib", bibtex, len(bibtex))
+      ind = bibtex.index("\n")
+      if bibtex[:8] == 'abstract':
+        ind = len(bibtex)
+        bibtex = bibtex.replace('\n', '')
+      attribute = bibtex[:ind].strip("\t,")
+      # print("attr",attribute)
+      try:
+        ind_attr = attribute.index("=")
+      except Exception as e:
+        bibtex = bibtex[1:]
+        continue
+      # print(ind_attr)
+      bib_dict[attribute[:ind_attr].strip()] = attribute[ind_attr+1:].strip('{} \r,')
+      bibtex = bibtex[ind + 1:]
+    # print(bib_dict)
+    bibs.append(bib_dict)
   print("from ieee", len(bibs))
   return bibs
 

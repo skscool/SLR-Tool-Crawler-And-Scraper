@@ -190,7 +190,6 @@ def getJSONIEEE(searchInput):
 def getJSONScienceDirect(searchInput):
   # print("\nfrom getJSONScienceDirect", searchInput)
   searchInput = removeNone(searchInput)
-  searchInput = processInput(searchInput)
   print("\n\n\n", searchInput)
   bibTex = getScienceDirectRecords(searchInput.copy())
   bibToJson(searchInput, bibTex)
