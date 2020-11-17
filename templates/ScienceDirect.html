@@ -31,16 +31,13 @@
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             grid-template-rows: 0fr 0fr 0fr 0fr 0fr 0fr 0fr 0fr 1fr 0fr;
             gap: 0px 0px;
-            grid-template-areas: ". searchTermRow1 searchTermRow1 searchTermRow1 ." ". journalBookTitleRow2Col1 journalBookTitleRow2Col1 yearRow2Col2 ." ". authorNameRow3Col1 authorNameRow3Col1 authorAffiliationRow3Col2 ." ". volumeRow4Col1 issueRow4Col2 pageRow4Col3 ." ". abstractRow5Col1 abstractRow5Col1 abstractRow5Col1 ." ". titleRow6Col1 titleRow6Col1 titleRow6Col1 ." ". referencesRow7Col1 referencesRow7Col1 referencesRow7Col1 ." ". issnIsbnRow8Col1 issnIsbnRow8Col1 issnIsbnRow8Col1 ." ". articleTypesRow9Col1 articleTypesRow9Col1 articleTypesRow9Col1 ." ". downloadBibtexRow10Col1 downloadBibtexRow10Col1 downloadBibtexRow10Col1 .";
+            grid-template-areas: ". . . . ." ". searchTermRow1 searchTermRow1 yearRow2Col2 ." ". authorNameRow3Col1 authorNameRow3Col1 authorAffiliationRow3Col2 ." ". volumeRow4Col1 issueRow4Col2 pageRow4Col3 ." ". abstractRow5Col1 abstractRow5Col1 abstractRow5Col1 ." ". titleRow6Col1 titleRow6Col1 titleRow6Col1 ." ". referencesRow7Col1 referencesRow7Col1 issnIsbnRow8Col1 ." ". . . . ." ". articleTypesRow9Col1 articleTypesRow9Col1 articleTypesRow9Col1 ." ". downloadBibtexRow10Col1 downloadBibtexRow10Col1 downloadBibtexRow10Col1 .";
         }
         
         .searchTermRow1 {
             grid-area: searchTermRow1;
         }
         
-        .journalBookTitleRow2Col1 {
-            grid-area: journalBookTitleRow2Col1;
-        }
         
         .yearRow2Col2 {
             grid-area: yearRow2Col2;
@@ -108,7 +105,7 @@
         
         .articleTypeCol3 {
             grid-area: articleTypeCol3;
-        }
+        }	    
     </style>
 </head>
 
@@ -179,269 +176,262 @@
                             <br>
                             <h5 class="card-title">Article Type</h5>
                             <br>
-                            <div class="grid-container-articleType">
-                                <div class="articleTypeCol1">
-                                    <ul>
-                                        <li>
-                                            <div checkbox checkbox-small checkbox-label-indent mb8 u-clr-grey8 ">
-						<label checkbox-label" for="adv-search-REV">
-                                                <input type="checkbox" id="adv-search-REV" name="articleTypes">
-                                                <span>
-						</span>
-                                                <span>Review articles</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-FLA" name="articleTypes" >
-						<span >
-						</span>
-						<span >Research articles</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-EN" name="articleTypes" >
-						<span >
-						</span>
-						<span >Encyclopedia</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-CH" name="articleTypes" >
-						<span >
-						</span>
-						<span >Book chapters</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-ABS" name="articleTypes" >
-						<span >
-						</span>
-						<span >Conference abstracts</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-BRV" name="articleTypes" >
-						<span >
-						</span>
-						<span >Book reviews</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-CRP" name="articleTypes" >
-						<span >
-						</span>
-						<span >Case reports</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-CNF" name="articleTypes" >
-						<span >
-						</span>
-						<span >Conference info</span>
-						</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="articleTypeCol2">
-                                    <ul>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-COR" name="articleTypes" >
-						<span >
-						</span>
-						<span >Correspondence</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-DAT" name="articleTypes" >
-						<span >
-						</span>
-						<span >Data articles</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-DIS" name="articleTypes" >
-						<span >
-						</span>
-						<span >Discussion</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-EDI" name="articleTypes" >
-						<span >
-						</span>
-						<span >Editorials</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-ERR" name="articleTypes" >
-						<span >
-						</span>
-						<span >Errata</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-EXM" name="articleTypes" >
-						<span >
-						</span>
-						<span >Examinations</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-SSU" name="articleTypes" >
-						<span >
-						</span>
-						<span >Mini reviews</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-NWS" name="articleTypes" >
-						<span >
-						</span>
-						<span >News</span>
-						</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                <div class="articleTypeCol3">
-                                    <ul>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-PNT" name="articleTypes" >
-						<span >
-						</span>
-						<span >Patent reports</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-PGL" name="articleTypes" >
-						<span >
-						</span>
-						<span >Practice guidelines</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-PRV" name="articleTypes" >
-						<span >
-						</span>
-						<span >Product reviews</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-RPL" name="articleTypes" >
-						<span >
-						</span>
-						<span >Replication studies</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-SCO" name="articleTypes" >
-						<span >
-						</span>
-						<span >Short communications</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-OSP" name="articleTypes" >
-						<span >
-						</span>
-						<span >Software publications</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-VID" name="articleTypes" >
-						<span >
-						</span>
-						<span >Video articles</span>
-						</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <label>
-						<input type="checkbox" id="adv-search-OT" name="articleTypes" >
-						<span >
-						</span>
-						<span >Other</span>
-						</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-
-
-
-
-
-
-
+                            
+			    <div class="grid-container-articleType">
+				   <div class="articleTypeCol1">
+				      <ul >
+					 <li>
+					    <div checkbox checkbox-small checkbox-label-indent mb8 u-clr-grey8">
+					       <label checkbox-label" for="adv-search-REV">
+					       <input type="checkbox" id="adv-search-REV" name="articleTypes" value="reviewArticles">
+					       <span >
+					       </span>
+					       <span >Review articles</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-FLA" name="articleTypes" value="researchArticles">
+					       <span >
+					       </span>
+					       <span >Research articles</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-EN" name="articleTypes" value="encyclopedia">
+					       <span >
+					       </span>
+					       <span >Encyclopedia</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-CH" name="articleTypes" value="bookChapters">
+					       <span >
+					       </span>
+					       <span >Book chapters</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-ABS" name="articleTypes" value="conferenceAbstracts">
+					       <span >
+					       </span>
+					       <span >Conference abstracts</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-BRV" name="articleTypes" value="bookReviews">
+					       <span >
+					       </span>
+					       <span >Book reviews</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-CRP" name="articleTypes" value="caseReports">
+					       <span >
+					       </span>
+					       <span >Case reports</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-CNF" name="articleTypes" value="conferenceInfo">
+					       <span >
+					       </span>
+					       <span >Conference info</span>
+					       </label>
+					    </div>
+					 </li>
+				      </ul>
+				   </div>
+				   <div class="articleTypeCol2">
+				      <ul >
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-COR" name="articleTypes" value="correspondence">
+					       <span >
+					       </span>
+					       <span >Correspondence</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-DAT" name="articleTypes" value="dataArticles">
+					       <span >
+					       </span>
+					       <span >Data articles</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-DIS" name="articleTypes" value="discussion">
+					       <span >
+					       </span>
+					       <span >Discussion</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-EDI" name="articleTypes" value="editorials">
+					       <span >
+					       </span>
+					       <span >Editorials</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-ERR" name="articleTypes" value="errata">
+					       <span >
+					       </span>
+					       <span >Errata</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-EXM" name="articleTypes" value="examinations">
+					       <span >
+					       </span>
+					       <span >Examinations</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-SSU" name="articleTypes" value="miniReviews">
+					       <span >
+					       </span>
+					       <span >Mini reviews</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-NWS" name="articleTypes" value="news">
+					       <span >
+					       </span>
+					       <span >News</span>
+					       </label>
+					    </div>
+					 </li>
+				      </ul>
+				   </div>
+				   <div class="articleTypeCol3">
+				      <ul >
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-PNT" name="articleTypes" value="patentReports">
+					       <span >
+					       </span>
+					       <span >Patent reports</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-PGL" name="articleTypes" value="practiceGuidelines">
+					       <span >
+					       </span>
+					       <span >Practice guidelines</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-PRV" name="articleTypes" value="productReviews">
+					       <span >
+					       </span>
+					       <span >Product reviews</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-RPL" name="articleTypes" value="replicationStudies">
+					       <span >
+					       </span>
+					       <span >Replication studies</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-SCO" name="articleTypes" value="shortCommunications">
+					       <span >
+					       </span>
+					       <span >Short communications</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-OSP" name="articleTypes" value="softwarePublications">
+					       <span >
+					       </span>
+					       <span >Software publications</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-VID" name="articleTypes" value="videoArticles">
+					       <span >
+					       </span>
+					       <span >Video articles</span>
+					       </label>
+					    </div>
+					 </li>
+					 <li>
+					    <div >
+					       <label >
+					       <input type="checkbox" id="adv-search-OT" name="articleTypes" value="other">
+					       <span >
+					       </span>
+					       <span >Other</span>
+					       </label>
+					    </div>
+					 </li>
+				      </ul>
+				   </div>
+				</div>
+			   
 
                         </div>
                         <div class="downloadBibtexRow10Col1">
