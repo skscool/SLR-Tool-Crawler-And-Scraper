@@ -65,7 +65,7 @@ function fetchFiltersFromSpringer(url, params) {
 			
 			//fill all dropdown of this kind with filter options
 			for(itr = 0; itr < allSelectSubcategories.length; itr++){
-				allSelectSubcategories[itr].options.add(new Option("---none---"));
+				allSelectSubcategories[itr].options.add(new Option("---- all ----"));
 				for(var i = 0; i < subcategory.length; i++) {
 					allSelectSubcategories[itr].options.add(new Option(subcategory[i]));
 				}
@@ -82,7 +82,7 @@ function fetchFiltersFromSpringer(url, params) {
 			
 			//fill all dropdown of this kind with filter options
 			for(itr = 0; itr < allSelectReleaseDates.length; itr++){
-				allSelectReleaseDates[itr].options.add(new Option("---none---"));
+				allSelectReleaseDates[itr].options.add(new Option("---- all ----"));
 				for(var i = 0; i < dates.length; i++) {
 					allSelectReleaseDates[itr].options.add(new Option(dates[i]));
 				}
@@ -98,7 +98,7 @@ function fetchFiltersFromSpringer(url, params) {
 			
 			//fill all dropdown of this kind with filter options
 			for(itr = 0; itr < allSelectLanguages.length; itr++){
-				allSelectLanguages[itr].options.add(new Option("---none---"));
+				allSelectLanguages[itr].options.add(new Option("---- all ----"));
 				for(var i = 0; i < languages.length; i++) {
 					allSelectLanguages[itr].options.add(new Option(languages[i]));
 				}
@@ -111,7 +111,7 @@ function fetchFiltersFromSpringer(url, params) {
 			}
 			
 			
-			selectLiteratureType1.options.add(new Option("---none---"));
+			selectLiteratureType1.options.add(new Option("---- all ----"));
 			for(var i = 0; i < types.length; i++) {
 				types[i] = types[i].replace(/^\s*/, "").replace(/\s*$/, "");
 				selectLiteratureType1.options.add(new Option(types[i]));
