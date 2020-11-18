@@ -4,6 +4,8 @@
 <head>
     <title>IEEE</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% load static %}    
+    <link rel= "stylesheet" type= "text/css" href="{% static 'style.css' %}">
 
     <style>
         body {
@@ -126,7 +128,7 @@
         <h1 id="topHeading">SLR Tool : Crawler & Scraper</h1>
         <div class="card text-center">
             <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
+                <ul class="nav nav-tabs nav-fill card-header-tabs">
                     <li class="nav-item">
                         <a class="nav-link" href="/">All</a>
                     </li>
