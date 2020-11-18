@@ -1,6 +1,9 @@
 # SSD33
 
-## Springer
+## Running the application
+* ``python manage.py runserver 8080`` or any other Port.
+
+### Springer
 1. Search for `input string`
 2. Figure out number of pages in search result
 3. For each page in search result :
@@ -11,7 +14,7 @@
 - Parse each BibTex (text format) into a Dictionary and add to global list
 - Convert global list into a json and write to the `output.json` file
 
-## ACM
+### ACM
 1. Search for `input string`
 2. Figure out number of pages in search result
 3. For each page in search result :
