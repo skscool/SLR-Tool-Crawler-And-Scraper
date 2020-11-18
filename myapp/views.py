@@ -91,7 +91,6 @@ def fetchFilters(request):
 	stringToSearch = searchString
 	html = requests.get('https://www.springer.com/in/search?dnc=true&facet-type=type__book&query=' + stringToSearch + '&submit=Submit').text
 	page_soup = soup(html,'html.parser')
-	
 	#get category filter and link for dropdown
 	categories = page_soup.find('div', {'id': 'facet-subj'}).findAll('span', {'class': 'facet-title'})
 	for c in categories:
@@ -168,24 +167,24 @@ def fetchBibTexFromSpringer(request):
 	http = 'https://www.springer.com/in/search?dnc=true&facet-type=type__book&query=' + stringToSearch
 	
 	
-	for x in request.form:
+	for x in request.POST:
 		if x[:-1] == 'selectSubcategory':
-			filter_subCategory_urldata = categoryToLinkdataDICT[request.form[x]]
+			filter_subCategory_urldata = categoryToLinkdataDICT[request.POST[x]]
 			if(filter_subCategory_urldata != "---none---"):
 				http = http + '&facet-subj=subj__'+ filter_subCategory_urldata 
 		
 		elif x[:-1] == 'selectReleaseDate':
-			filter_date_urldata = dateToLinkdataDICT[request.form[x]]
+			filter_date_urldata = dateToLinkdataDICT[request.POST[x]]
 			if(filter_date_urldata != "---none---"):
 				http = http + '&facet-pdate=pdate__' + filter_date_urldata
 		
 		elif x[:-1] == 'selectLanguages': 			
-			filter_language_urldata = languageToLinkdataDICT[request.form[x]]		
+			filter_language_urldata = languageToLinkdataDICT[request.POST[x]]		
 			if(filter_language_urldata != "---none---"):
 				http = http + '&facet-lan=lan__' + filter_language_urldata	
 		
 		elif x[:-1] == 'selectLiteratureType':
-			filter_type_urldata = typeToLinkdataDICT[request.form[x]]
+			filter_type_urldata = typeToLinkdataDICT[request.POST[x]]
 			if(filter_type_urldata != "---none---"):							#--------change 8------- update search url if user applies this filter
 				http = http + '&facet-type=categorybook__' + filter_type_urldata		
 				
