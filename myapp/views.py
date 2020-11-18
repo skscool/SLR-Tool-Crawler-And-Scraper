@@ -66,22 +66,22 @@ typeToLinkdataDICT = {}					#----------------------to the user)and their actual 
 def fetchFilters(request):
 	subCategoryList.clear()
 	categoryToLinkdataDICT.clear()
-	categoryToLinkdataDICT["---none---"] = "---none---"
+	categoryToLinkdataDICT["---- all ----"] = "---- all ----"
 	
 	dateFilterList.clear()
 	dateToLinkdataDICT.clear()
-	dateToLinkdataDICT["---none---"] = "---none---"
+	dateToLinkdataDICT["---- all ----"] = "---- all ----"
 	
 	languageFilterList.clear()
 	languageToLinkdataDICT.clear()
-	languageToLinkdataDICT["---none---"] = "---none---"
+	languageToLinkdataDICT["---- all ----"] = "---- all ----"
 
 	typeFilterList.clear()									#---------change 5-----clear filter value to link dict & add an entry for users 
 	typeToLinkdataDICT.clear()								#----------------------who don't wan't to apply that filter
-	typeToLinkdataDICT["---none---"] = "---none---"
+	typeToLinkdataDICT["---- all ----"] = "---- all ----"
 		
 	searchString = request.GET['searchString']
-	print("searchString :",searchString)
+	print("searchString --> springer /fetchfilter :",searchString)
 	from bs4 import BeautifulSoup as soup
 	import requests
 	import json
@@ -92,13 +92,14 @@ def fetchFilters(request):
 	html = requests.get('https://www.springer.com/in/search?dnc=true&facet-type=type__book&query=' + stringToSearch + '&submit=Submit').text
 	page_soup = soup(html,'html.parser')
 	#get category filter and link for dropdown
+	
 	categories = page_soup.find('div', {'id': 'facet-subj'}).findAll('span', {'class': 'facet-title'})
 	for c in categories:
 		temp = c.string.strip()
 		subCategoryList.append(temp)
 		response += temp
 		response += "^"
-  
+	
 	i=0
 	categories = page_soup.find('div', {'id': 'facet-subj'}).findAll('a', {'class': 'facet-link'})
 	for c in categories:
@@ -147,8 +148,7 @@ def fetchFilters(request):
 	for t in types:
 		typeToLinkdataDICT[typeFilterList[i]] = t['onmousedown'].split('\'')[1]
 		i+=1
-	
-	return response
+	return HttpResponse(response)
 
 
 #download the BibTex in server-side
@@ -168,36 +168,36 @@ def fetchBibTexFromSpringer(request):
 	
 	
 	for x in request.POST:
-		if x[:-1] == 'selectSubcategory':
+		if x.startswith('selectSubcategory'):
 			filter_subCategory_urldata = categoryToLinkdataDICT[request.POST[x]]
-			if(filter_subCategory_urldata != "---none---"):
+			if(filter_subCategory_urldata != "---- all ----"):
 				http = http + '&facet-subj=subj__'+ filter_subCategory_urldata 
 		
-		elif x[:-1] == 'selectReleaseDate':
+		elif x.startswith('selectReleaseDate'):
 			filter_date_urldata = dateToLinkdataDICT[request.POST[x]]
-			if(filter_date_urldata != "---none---"):
+			if(filter_date_urldata != "---- all ----"):
 				http = http + '&facet-pdate=pdate__' + filter_date_urldata
 		
-		elif x[:-1] == 'selectLanguages': 			
+		elif x.startswith('selectLanguages'): 			
 			filter_language_urldata = languageToLinkdataDICT[request.POST[x]]		
-			if(filter_language_urldata != "---none---"):
+			if(filter_language_urldata != "---- all ----"):
 				http = http + '&facet-lan=lan__' + filter_language_urldata	
 		
-		elif x[:-1] == 'selectLiteratureType':
+		elif x.startswith('selectLiteratureType'):
 			filter_type_urldata = typeToLinkdataDICT[request.POST[x]]
-			if(filter_type_urldata != "---none---"):							#--------change 8------- update search url if user applies this filter
+			if(filter_type_urldata != "---- all ----"):							#--------change 8------- update search url if user applies this filter
 				http = http + '&facet-type=categorybook__' + filter_type_urldata		
 				
 	
 	
 	#http = http + '&submit=Submit'		#this is the full link
-	html = requests.GET[http + '&submit=Submit'].text
-	print("http is ---------------------->")
-	print(http)
+	html = requests.get(http + '&submit=Submit').text
+	#print("http is ----------------------> /fetchBibTexFromSpringer ")
+	#print(http)
 	
 	page_soup = soup(html,'html.parser')
 	noOfSearchPages = page_soup.find('span', {'class': 'number-of-pages'}).string.strip()
-			
+	noOfSearchPages = noOfSearchPages.replace(',','')
 	noOfSearchPages = int(noOfSearchPages)+1
 	print("noOfSearchPages :",noOfSearchPages-1)
 	
@@ -268,14 +268,12 @@ def isSearchValid(request):
 	import math
 	import ast		#for converting byte received from client (form data) to python dictionary
 	
-	print("inside is search valid\n\n\n")
-	print(type(request.data), request.data)
+	print("checking validity of search in springer!")
 	
-	byte_str = request.data
+	byte_str = request.body
 	dict_str = byte_str.decode("UTF-8")
 	mydata = ast.literal_eval(dict_str)				#form data to validate by visiting link
 	print("form data to verify = \n",repr(mydata))
-	print(mydata['searchString'])
 	
 	#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
 	stringToSearch = mydata['searchString']
@@ -285,37 +283,37 @@ def isSearchValid(request):
 
 	
 	for x in mydata:
-		if x[:-1] == 'selectSubcategory':
+		if x.startswith('selectSubcategory'):
 			filter_subCategory_urldata = categoryToLinkdataDICT[mydata[x]]
-			if(filter_subCategory_urldata != "---none---"):
+			if(filter_subCategory_urldata != "---- all ----"):
 				http = http + '&facet-subj=subj__'+ filter_subCategory_urldata 
 		
-		elif x[:-1] == 'selectReleaseDate':
+		elif x.startswith('selectReleaseDate'):
 			filter_date_urldata = dateToLinkdataDICT[mydata[x]]
-			if(filter_date_urldata != "---none---"):
+			if(filter_date_urldata != "---- all ----"):
 				http = http + '&facet-pdate=pdate__' + filter_date_urldata
 		
-		elif x[:-1] == 'selectLanguages': 			
+		elif x.startswith('selectLanguages'): 			
 			filter_language_urldata = languageToLinkdataDICT[mydata[x]]		
-			if(filter_language_urldata != "---none---"):
+			if(filter_language_urldata != "---- all ----"):
 				http = http + '&facet-lan=lan__' + filter_language_urldata	
 		
-		elif x[:-1] == 'selectLiteratureType':
+		elif x.startswith('selectLiteratureType'):
 			filter_type_urldata = typeToLinkdataDICT[mydata[x]]
-			if(filter_type_urldata != "---none---"):							#--------change 8------- update search url if user applies this filter
+			if(filter_type_urldata != "---- all ----"):							#--------change 8------- update search url if user applies this filter
 				http = http + '&facet-type=categorybook__' + filter_type_urldata		
 				
 	
 	#http = http + '&submit=Submit'		#this is the full link
 	html = requests.get(http + '&submit=Submit').text
-	print("checking if valid search, link = ")
-	print(http)
+	#print("checking if valid search, link = ")
+	#print(http)
 	
 	page_soup = soup(html,'html.parser')
 	try:
 		noOfSearchPages = page_soup.find('span', {'class': 'number-of-pages'}).string.strip()
-		return "valid"
+		return HttpResponse("valid")
 	except:
-		return "invalid"
+		return HttpResponse("invalid")
 
 #--------------------------------------------------------Springer specific ends here---------------------------------------------------------------------------------
