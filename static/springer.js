@@ -35,41 +35,75 @@ function fetchFiltersFromSpringer(url, params) {
 			types.shift();
 			types.pop();
 			
-			var length = selectSubcategory1.options.length;
-			for (i = length-1; i >= 0; i--) {
-				selectSubcategory1.options[i] = null;
-			}
+			//get all the filter fields and paste the filters in them
+			var allSelectSubcategories = document.querySelectorAll('[id^=selectSubcategory]');
+			var allSelectReleaseDates = document.querySelectorAll('[id^=selectReleaseDate]');
+			var allSelectLanguages = document.querySelectorAll('[id^=selectLanguages]');
 			
-			selectSubcategory1.options.add(new Option("---none---"));
+			//sanitize the filters if needed
 			for(var i = 0; i < subcategory.length; i++) {
 				subcategory[i] = subcategory[i].replace(/^\s*/, "").replace(/\s*$/, "");
-				selectSubcategory1.options.add(new Option(subcategory[i]));
-			}
-
-			var length = selectReleaseDate1.options.length;
-			for (i = length-1; i >= 0; i--) {
-				selectReleaseDate1.options[i] = null;
 			}
 			
-			
-			selectReleaseDate1.options.add(new Option("---none---"));
 			for(var i = 0; i < dates.length; i++) {
 				dates[i] = dates[i].replace(/^\s*/, "").replace(/\s*$/, "");
-				selectReleaseDate1.options.add(new Option(dates[i]));
 			}
 			
-			var length = selectLanguages1.options.length;
-			for (i = length-1; i >= 0; i--) {
-				selectLanguages1.options[i] = null;
-			}
-			
-			
-			selectLanguages1.options.add(new Option("---none---"));
 			for(var i = 0; i < languages.length; i++) {
 				languages[i] = languages[i].replace(/^\s*/, "").replace(/\s*$/, "");
-				selectLanguages1.options.add(new Option(languages[i]));
 			}
 			
+			
+			
+			//empty all options of all dropdown of this kind
+			for(itr = 0; itr < allSelectSubcategories.length; itr++){
+				var length = allSelectSubcategories[itr].options.length;
+				for(i = length-1; i >= 0; i--){
+					allSelectSubcategories[itr].options[i] = null;
+				}
+			}
+			
+			//fill all dropdown of this kind with filter options
+			for(itr = 0; itr < allSelectSubcategories.length; itr++){
+				allSelectSubcategories[itr].options.add(new Option("---none---"));
+				for(var i = 0; i < subcategory.length; i++) {
+					allSelectSubcategories[itr].options.add(new Option(subcategory[i]));
+				}
+			}
+			
+			
+			//empty all options of all dropdown of this kind
+			for(itr = 0; itr < allSelectReleaseDates.length; itr++){
+				var length = allSelectReleaseDates[itr].options.length;
+				for(i = length-1; i >= 0; i--){
+					allSelectReleaseDates[itr].options[i] = null;
+				}
+			}
+			
+			//fill all dropdown of this kind with filter options
+			for(itr = 0; itr < allSelectReleaseDates.length; itr++){
+				allSelectReleaseDates[itr].options.add(new Option("---none---"));
+				for(var i = 0; i < dates.length; i++) {
+					allSelectReleaseDates[itr].options.add(new Option(dates[i]));
+				}
+			}
+
+			//empty all options of all dropdown of this kind
+			for(itr = 0; itr < allSelectLanguages.length; itr++){
+				var length = allSelectLanguages[itr].options.length;
+				for(i = length-1; i >= 0; i--){
+					allSelectLanguages[itr].options[i] = null;
+				}
+			}
+			
+			//fill all dropdown of this kind with filter options
+			for(itr = 0; itr < allSelectLanguages.length; itr++){
+				allSelectLanguages[itr].options.add(new Option("---none---"));
+				for(var i = 0; i < languages.length; i++) {
+					allSelectLanguages[itr].options.add(new Option(languages[i]));
+				}
+			}
+
 			
 			var length = selectLiteratureType1.options.length;						//--------------change 3------------------ clear dropdown and then populate
 			for (i = length-1; i >= 0; i--) {
@@ -127,12 +161,12 @@ function validateMyForm(event){
 	
 	var url = "/isSearchValid";				
 	const formx = document.querySelector('form');
-	const data = Object.fromEntries(new FormData(formx).entries()); 
+	const data = Object.fromEntries(new FormData(formx).entries()); 	//get data from the form
 	var stateOfResult = false;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var response = this.responseText;				//response from server has all possible types of filter each type with a differet delimiter
+			var response = this.responseText;				//response from server whether search was valid or not
 			if(response == 'valid'){
 				messageBox.innerHTML = "Result found! Fetching BibTex...";
 				messageBox.className = 'pass';
@@ -148,7 +182,7 @@ function validateMyForm(event){
 			stateOfResult = false;
 	   }
 	};
-	xhttp.open("POST", url, true);	//make a get request to the url with payload as form data
+	xhttp.open("POST", url, true);	//make a post request to the url with payload as form data
 	xhttp.send(JSON.stringify(data));
 
 		messageBox.innerHTML = "Searching in Springer...";
