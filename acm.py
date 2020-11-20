@@ -150,25 +150,27 @@ def getACMRecords(searchInput, bibs):
 	print("from get acm records", searchString)
 	url = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl" + searchString + '&pageSize=50'
 	print(url)
-
-	x = requests.get(url)
-	parsed_html = sp(x.text,"html.parser")
-
-	totalNumber = int(parsed_html.find("span",{"class":"hitsLength"}).string.strip().replace(',',''))
-	totalPages = ceil(totalNumber/50)
-	print("Total Results: ",totalNumber)
-	print("Total Pages: ",totalPages)
-
-	# Extract first page
-	bibs += scrape(parsed_html)
-	# return
-	for i in range(1,totalPages):
-		print("Page ",i)
-		next_page = url + "&pageSize=50&startPage="+str(i)
-		print(next_page)
-		x = requests.get(next_page)
+	try: 
+		x = requests.get(url)
 		parsed_html = sp(x.text,"html.parser")
+
+		totalNumber = int(parsed_html.find("span",{"class":"hitsLength"}).string.strip().replace(',',''))
+		totalPages = ceil(totalNumber/50)
+		print("Total Results: ",totalNumber)
+		print("Total Pages: ",totalPages)
+
+		# Extract first page
 		bibs += scrape(parsed_html)
-	print("total bibs from acm", len(bibs))
+		# return
+		for i in range(1,totalPages):
+			print("Page ",i)
+			next_page = url + "&pageSize=50&startPage="+str(i)
+			print(next_page)
+			x = requests.get(next_page)
+			parsed_html = sp(x.text,"html.parser")
+			bibs += scrape(parsed_html)
+		print("total bibs from acm", len(bibs))
+	except:
+			print("Results are none")
 	return bibs
 

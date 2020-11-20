@@ -22,25 +22,25 @@ def springer(request):
 	return render(request,'Springer.html')
 
 def fetchAll(request):
-	fileName = 'All-' + str(time())
+	fileName = 'All-' + str(time()).replace('.', '') + '.txt' 
 	print("\n\nfrom fetch all", request.POST)
 	getJSONAll(request.POST, fileName)
 	return sendDownloadedFile(fileName)
 
 def fetchACM(request):
-	fileName = 'ACM-' + str(time())
+	fileName = 'ACM-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch ACM", request.POST)
 	getJSONACM(request.POST, fileName)
 	return sendDownloadedFile(fileName)
 
 def fetchIEEE(request):
-	fileName = 'IEEE-' + str(time())
+	fileName = 'IEEE-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch IEEE", request.POST)
 	getJSONIEEE(request.POST, fileName)
 	return sendDownloadedFile(fileName)
 
 def fetchScienceDirect(request):
-	fileName = 'ScienceDirect-' + str(time())
+	fileName = 'ScienceDirect-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch Science Direct", request.POST)
 	getJSONScienceDirect(request.POST, fileName)
 	return sendDownloadedFile(fileName)

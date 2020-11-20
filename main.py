@@ -6,6 +6,7 @@ import copy
 import json
 import multidict
 import threading 
+from datetime import date
 
 def bibToJson(fileName, bibs):
   print("total results", len(bibs))
@@ -112,7 +113,13 @@ def inputToScienceDirect(searchInput):
   except:
     pass
   try:
-    searchInput['date'] =  searchInput.pop('yearStart') + '-' + searchInput.pop('yearEnd')
+    start = int(searchInput.pop('yearStart'))
+    end = searchInput.pop('yearEnd')
+    if start != '1872' and end != date.today().year:
+      years = str(start)
+      for i in range(start+1, end+1):
+        years+= str(i)
+      searchInput['years'] =  years
   except:
     pass
   print("input to Science Direct", searchInput)
@@ -137,10 +144,6 @@ def inputToSpringer(searchInput):
     pass
   try:
     searchInput['Author Keywords'] = searchInput.pop('authSpecKey')
-  except:
-    pass
-  try:
-    searchInput['ranges'] =  '\"' + searchInput.pop('yearStart') + '_' + searchInput.pop('yearEnd') + '_Year\"'
   except:
     pass
   print("input to Springer", searchInput)
@@ -186,10 +189,16 @@ def processInput(searchInput):
   print(newSearchInput)
   return newSearchInput
 
+# AfterMonth=5&AfterYear=2016&BeforeMonth=9&BeforeYear=2015
+
 def getJSONACM(searchInput, fileName):
   # print("\nfrom getJSONACM", searchInput)
   searchInput = removeNone(searchInput)
+  inp = dict(searchInput)
+  time = ''
+  # if 'articleTypes' in inp.keys():
   searchInput = processInput(searchInput)
+  
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getACMRecords(searchInput.copy(), bibTex)
@@ -205,8 +214,15 @@ def getJSONIEEE(searchInput, fileName):
   bibToJson(fileName, bibTex)
 
 def getJSONScienceDirect(searchInput, fileName):
-  # print("\nfrom getJSONScienceDirect", searchInput)
+  print("\nfrom getJSONScienceDirect", searchInput)
+  inp = dict(searchInput)
+  articleTypes = ''
+  if 'articleTypes' in inp.keys():
+    articleTypes = '%2C'.join(inp['articleTypes'])
+  print(articleTypes)
   searchInput = removeNone(searchInput)
+  if(articleTypes != ''):
+    searchInput['articleTypes'] = articleTypes
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getScienceDirectRecords(searchInput.copy(), bibTex)
