@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 import os
 from main import *
+from time import time
 
 # Create your views here.
 def landing(request):
@@ -21,28 +22,33 @@ def springer(request):
 	return render(request,'Springer.html')
 
 def fetchAll(request):
+	fileName = 'All-' + str(time()).replace('.', '') + '.txt' 
 	print("\n\nfrom fetch all", request.POST)
-	getJSONAll(request.POST)
-	return sendDownloadedFile()
+	getJSONAll(request.POST, fileName)
+	return sendDownloadedFile(fileName)
 
 def fetchACM(request):
+	fileName = 'ACM-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch ACM", request.POST)
-	getJSONACM(request.POST)
-	return sendDownloadedFile()
+	getJSONACM(request.POST, fileName)
+	return sendDownloadedFile(fileName)
 
 def fetchIEEE(request):
+	fileName = 'IEEE-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch IEEE", request.POST)
-	getJSONIEEE(request.POST)
-	return sendDownloadedFile()
+	getJSONIEEE(request.POST, fileName)
+	return sendDownloadedFile(fileName)
 
 def fetchScienceDirect(request):
+	fileName = 'ScienceDirect-' + str(time()).replace('.', '') + '.txt'
 	print("\n\nfrom fetch Science Direct", request.POST)
-	getJSONScienceDirect(request.POST)
-	return sendDownloadedFile()
+	getJSONScienceDirect(request.POST, fileName)
+	return sendDownloadedFile(fileName)
 
-def sendDownloadedFile():
-	path = os.getcwd()+"/output.json"
+def sendDownloadedFile(fileName):
+	path = os.getcwd()+ '/' + fileName #"/output.json"
 	print("Sending file...")
+
 	response = FileResponse(open(path, 'rb'),as_attachment=True)
 	return response
 
@@ -257,7 +263,7 @@ def fetchBibTexFromSpringer(request):
 	with open(filename, 'w') as outfile:
 		json.dump(output_json, outfile)
 
-	return sendDownloadedFile()
+	return sendDownloadedFile(filename)
 
 
 #Send error message to client if the search result is empty i.e. springer couldn't find result for given query/filter

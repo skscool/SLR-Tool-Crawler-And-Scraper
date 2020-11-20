@@ -42,7 +42,7 @@ def getUrls(searchString):
       results = page_soup.find("h1", {"class" : "search-body-results-text"}).text
     except:
       return individual_urls
-  result_count = int((results.strip().split()[0]).replace(',', ''))
+  result_count = int((results.strip().split()[0]).replace(',', '').replace('+', ''))
   print("results", result_count)
   while(off<result_count):
     print(off)
