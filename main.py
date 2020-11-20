@@ -7,14 +7,14 @@ import json
 import multidict
 import threading 
 
-def bibToJson(searchInput, bibs):
+def bibToJson(fileName, bibs):
   print("total results", len(bibs))
   output_json = {}
   for bib in range(0, len(bibs)):
     output_json[bib] = bibs[bib]
   # print(output_json)
-  filename = 'output.json'   
-  with open(filename, 'w') as outfile:
+  # filename = 'output.json'   
+  with open(fileName, 'w') as outfile:
       json.dump(output_json, outfile)
 
 def removeNone(searchInput):
@@ -146,7 +146,7 @@ def inputToSpringer(searchInput):
   print("input to Springer", searchInput)
   return searchInput
 
-def getJSONAll(searchInput):
+def getJSONAll(searchInput, fileName):
   print("\nfrom getJSONALL", searchInput)
   bibTex = [[], [], [], []]
   t = [None]*4
@@ -169,7 +169,7 @@ def getJSONAll(searchInput):
   # bibTex += getScienceDirectRecords(inputToScienceDirect(searchInput.copy()))
   # bibTex += getSpringerRecords(inputToSpringer(searchInput.copy()))
   bibTex = bibTex[0]+bibTex[1]+bibTex[2]+bibTex[3]
-  bibToJson(searchInput, bibTex)
+  bibToJson(fileName, bibTex)
 
 def processInput(searchInput):
   size = ceil(len(searchInput)/2)+1
@@ -186,28 +186,28 @@ def processInput(searchInput):
   print(newSearchInput)
   return newSearchInput
 
-def getJSONACM(searchInput):
+def getJSONACM(searchInput, fileName):
   # print("\nfrom getJSONACM", searchInput)
   searchInput = removeNone(searchInput)
   searchInput = processInput(searchInput)
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getACMRecords(searchInput.copy(), bibTex)
-  bibToJson(searchInput, bibTex)
+  bibToJson(fileName, bibTex)
 
-def getJSONIEEE(searchInput):
+def getJSONIEEE(searchInput, fileName):
   # print("\nfrom getJSONIEEE", searchInput)
   searchInput = removeNone(searchInput)
   searchInput = processInput(searchInput)
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getIEEERecords(searchInput.copy(), bibTex)
-  bibToJson(searchInput, bibTex)
+  bibToJson(fileName, bibTex)
 
-def getJSONScienceDirect(searchInput):
+def getJSONScienceDirect(searchInput, fileName):
   # print("\nfrom getJSONScienceDirect", searchInput)
   searchInput = removeNone(searchInput)
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getScienceDirectRecords(searchInput.copy(), bibTex)
-  bibToJson(searchInput, bibTex)
+  bibToJson(fileName, bibTex)
