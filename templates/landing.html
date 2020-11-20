@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/static/springerStyle.css">
 </head>
 
-<body>
+<body onload="updateYear()">
     <div class="container">
         <h1 id="topHeading">Literature Library</h1>
         <div class="card">
@@ -34,11 +34,11 @@
             </div>
             <div class="card-body">
                 <p>Search for literature in ACM, IEEE, Springer and ScienceDirect</p>
-                <form action="/fetchAll" method="POST">
+                <form name = "main_form" action="/fetchAll" method="POST">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationDefault01">Search</label>
-                            <input type="text" class="form-control inputText" id="validationDefault01" name="basic" required>
+                            <input type="text" class="form-control inputText" id="validationDefault01" name="basic">
                             <!-- <span class="floating-label">Find articles with these terms</span> -->
                         </div>
                     </div>
@@ -74,21 +74,21 @@
                     </div>
                     <div class="form-row">
                     	<div class="col-md-3 mb-3">
-                            <label for="validationDefault08">Year</label>
-                            <input type="number" class="form-control" id="validationDefault08" value = "1800" min = "1800" max = "2020" name="yearStart">
+                            <label for="yearStart">Year Start</label>
+                            <input type="number" class="form-control" id="yearStart" value = "1872" min = "1872" name="yearStart">
 
-                            <label for="validationDefault09">Year End</label>
-                            <input type="number" class="form-control" id="validationDefault09" value = "2020" min = "1800" max = "2020" name="yearEnd">
+                            <label for="yearEnd">Year End</label>
+                            <input type="number" class="form-control" id="yearEnd" min = "1872" name="yearEnd">
                     	</div>
                     </div>
                     <div id="message"> </div>
                     <br><br>
-                    <button class="btn btn-primary" type="submit" onclick="downloading()">Search</button>
+                    <button class="btn btn-primary" type="submit" onclick=" return validate()">Search</button>
                 </form>
             </div>
         </div>
     </div>
-    <script src="/static/landing.js"></script>
+    <script src="{% static 'landing.js' %}"></script>
 </body>
 
 

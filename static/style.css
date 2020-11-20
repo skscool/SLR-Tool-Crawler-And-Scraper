@@ -54,6 +54,8 @@ body{
 
 .downloadButtonArea { grid-area: downloadButtonArea; margin-top: 10px;}
 
+/*.red{   color: red; }*/
+
 #publicationDate{
     display: inline-block; text-align: center; padding:5px; margin: 5px;
 }
