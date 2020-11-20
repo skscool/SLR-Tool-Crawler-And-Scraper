@@ -15,27 +15,41 @@ function updateYear(){
 	ye.setAttribute("value",curr_year);
 }
 
-function invalid_years(){
+function fail_msg(s){
     var messageBox = document.getElementById("message");
-    messageBox.innerHTML = "Starting year should not be greater than Ending year";
+    messageBox.innerHTML = s;
     messageBox.className = 'fail';
 }
 
 function validate(){
 	// console.log("dsfads",document.main_form.basic.value);
+	var curr_year = new Date().getFullYear();
 	if(document.main_form.basic.value == ""){
-	    var messageBox = document.getElementById("message");
-	    messageBox.innerHTML = "Search string empty";
-	    messageBox.className = 'fail';
+	    fail_msg("Search string empty");
 	    return false
 	}
-	if (parseInt(document.main_form.yearStart.value) > parseInt(document.main_form.yearEnd.value)){
-		console.log("Hi");
-		invalid_years()
+	if(parseInt(document.main_form.yearStart.value) < 1872){
+		fail_msg("Starting year must be greater than 1872")
 		return false;
 	}
-	else{
-		downloading();
-		return true;
+	if(parseInt(document.main_form.yearStart.value) > curr_year){
+		fail_msg("Starting year must be less than " + curr_year)
+		return false;
 	}
+	if(parseInt(document.main_form.yearEnd.value) < 1872){
+		fail_msg("Ending year must be greater than 1872")
+		return false;
+	}
+	if(parseInt(document.main_form.yearEnd.value) > curr_year){
+		fail_msg("Ending year must be less than " + curr_year)
+		return false;		
+	}
+
+	if (parseInt(document.main_form.yearStart.value) > parseInt(document.main_form.yearEnd.value)){
+		console.log("Hi");
+		fail_msg("Starting year should not be greater than Ending year")
+		return false;
+	}
+	downloading();
+	return true;
 }
