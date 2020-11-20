@@ -48,8 +48,8 @@ def fetchScienceDirect(request):
 def sendDownloadedFile(fileName):
 	path = os.getcwd()+ '/' + fileName #"/output.json"
 	print("Sending file...")
-
 	response = FileResponse(open(path, 'rb'),as_attachment=True)
+	os.remove(path)
 	return response
 
 #----------------------------------------------Springer specific code-----------------------------------------------------------------------------
