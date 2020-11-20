@@ -2,10 +2,10 @@ import csv
 import sys
 import requests
 import math
+from datetime import date
 
-ranges = ""
+
 def getSearchString(searchInput):
-  ranges = '"1872_2021_Year"'
   print("from get search string", searchInput)
   searchString = ""
   flag = False
@@ -15,7 +15,6 @@ def getSearchString(searchInput):
     print(key, val)
     if len(val) > 0:
       if key == 'ranges':
-        ranges = val
         continue
       if len(key)> l and key[:l] == '(\\"Document Title\\":':
         prefix = '(' + key +':' + val + ') AND '
@@ -33,7 +32,7 @@ def getSearchString(searchInput):
         break
   return '\"' + searchString + '\"'
 
-def getRecordIds(searchString):
+def getRecordIds(searchString, ranges):
   print("search string", searchString)
   headers = {
       'Content-Type': 'application/json',
@@ -144,7 +143,10 @@ def getBibTex(recordIds):
 def getIEEERecords(searchInput, bibTex):
   searchString = getSearchString(searchInput)
   print(searchString)
-  recordIds = getRecordIds(searchString)
+  ranges = '"1872_' + str(date.today().year) + '_Year"'
+  if 'ranges' in searchInput.keys():
+    ranges = searchInput['ranges']
+  recordIds = getRecordIds(searchString, ranges)
   bibTex += getBibTex(recordIds)
   print("total bibs from ieee", len(bibTex))
   return bibTex

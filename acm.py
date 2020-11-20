@@ -145,8 +145,8 @@ def scrape(parsed_html):
 		# print("bib = ",json.dumps(bibTex,indent=2))
 	return bibTex
 
-def getACMRecords(searchInput, bibs):
-	searchString = getSearchString(searchInput)
+def getACMRecords(searchInput, bibs, years=''):
+	searchString = getSearchString(searchInput) + years
 	print("from get acm records", searchString)
 	url = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl" + searchString + '&pageSize=50'
 	print(url)

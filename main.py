@@ -113,12 +113,14 @@ def inputToScienceDirect(searchInput):
   except:
     pass
   try:
-    start = int(searchInput.pop('yearStart'))
+    start = searchInput.pop('yearStart')
     end = searchInput.pop('yearEnd')
-    if start != '1872' and end != date.today().year:
+    if start != '1872' or end != date.today().year:
+      start = int(start)
+      end = int(end)
       years = str(start)
       for i in range(start+1, end+1):
-        years+= str(i)
+        years += '%2C' + str(i)
       searchInput['years'] =  years
   except:
     pass
@@ -157,6 +159,8 @@ def getJSONAll(searchInput, fileName):
   t[0] = threading.Thread(target=getACMRecords, args=(inputToACM(searchInput.copy()),bibTex[0])) 
   t[1] = threading.Thread(target=getIEEERecords, args=(inputToIEEE(searchInput.copy()),bibTex[1]))
   t[2] = threading.Thread(target=getScienceDirectRecords, args=(inputToScienceDirect(searchInput.copy()),bibTex[2])) 
+  # t[2].start()
+  # t[2].join()
   t[3] = threading.Thread(target=getSpringerRecords, args=(inputToSpringer(searchInput.copy()),bibTex[3]))
   for i in range(4):
     t[i].start()
@@ -194,20 +198,36 @@ def processInput(searchInput):
 def getJSONACM(searchInput, fileName):
   # print("\nfrom getJSONACM", searchInput)
   searchInput = removeNone(searchInput)
-  inp = dict(searchInput)
-  time = ''
-  # if 'articleTypes' in inp.keys():
+  keys = searchInput.keys()
+  years = ''
+  time = ['AfterMonth', 'AfterYear', 'BeforeMonth', 'BeforeYear']
+  for i in time:
+    if i in keys:
+      years += '&'+ i + '=' + searchInput.pop(i).strip()
   searchInput = processInput(searchInput)
   
   print("\n\n\n", searchInput)
   bibTex = []
-  bibTex = getACMRecords(searchInput.copy(), bibTex)
+  bibTex = getACMRecords(searchInput.copy(), bibTex, years)
   bibToJson(fileName, bibTex)
 
 def getJSONIEEE(searchInput, fileName):
   # print("\nfrom getJSONIEEE", searchInput)
   searchInput = removeNone(searchInput)
+  keys = searchInput.keys()
+  start = ""
+  end = ""
+  if 'afterYear' in keys:
+    start = searchInput['afterYear']
+  else:
+    start = '1872'
+  if 'beforeYear' in keys:
+    end = searchInput['beforeYear'].strip()
+  else:
+    end = str(date.today().year)
   searchInput = processInput(searchInput)
+  if start != '1872' or end != str(date.today().year):
+    searchInput['ranges'] =  '\"' + start + '_' + end + '_Year\"'
   print("\n\n\n", searchInput)
   bibTex = []
   bibTex = getIEEERecords(searchInput.copy(), bibTex)
