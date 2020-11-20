@@ -7,16 +7,17 @@
 
     <style>
         body {
-            background: #005AA7;
+            background: #000000;
             /* fallback for old browsers */
-            background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);
+            /*background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7);*/
             /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to top, #FFFDE4, #005AA7);
+            /*background: linear-gradient(to top, #FFFDE4, #005AA7);*/
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         }
         
         #topHeading {
             color: white;
+            text-align: center;
         }
         
         .grid-container {
@@ -123,7 +124,7 @@
 
 <body>
     <div class="container">
-        <h1 id="topHeading">SLR Tool : Crawler & Scraper</h1>
+        <h1 id="topHeading">Literature Library</h1>
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs nav-fill card-header-tabs">
@@ -210,15 +211,15 @@
                                 </div>
                                 <div class="input-group time-frame">
                                     <label for="staticRange" class="radio--primary">
-					<input id="staticRange" type="radio" name="publicationDate" value="">
-					<span class="label-txt">Last &nbsp &nbsp &nbsp </span>
+					<!-- <input id="staticRange" type="radio" name="publicationDate" value=""> -->
+					<!-- <span class="label-txt">Last &nbsp &nbsp &nbsp </span>
 					</label>
                                     <select id="staticRangeSelect" name="publicationDate" value="" class="inline staticRange">
 						<option value="">Please Select</option>
 						<option value="[20201011 TO 20201111]">month</option>
 						<option value="[20200511 TO 20201111]">6 months</option>
 						<option value="[20191111 TO 20201111]">year</option>
-					</select>
+					</select> -->
                                 </div>
                                 <div class="input-group time-frame dateFilterSelect">
                                     <label for="customRange" class="radio--primary">
