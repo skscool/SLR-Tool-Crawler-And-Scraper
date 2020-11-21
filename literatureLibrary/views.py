@@ -163,7 +163,7 @@ def fetchBibTexFromSpringer(request):
 	import requests
 	import json
 	import math
-	
+	fileName = 'Springer-' + str(time()).replace('.', '') + '.json' 
 	print("form data =", request.POST)
 
 	#---------------------------------------get the number of pages in the search result to loop over----------------------------------------------------
@@ -259,7 +259,7 @@ def fetchBibTexFromSpringer(request):
 	
 	print("BibTex Collected : ", itemCount)
 	
-	filename = "output.json"            #write to json file
+	# filename = "output.json"            #write to json file
 	with open(filename, 'w') as outfile:
 		json.dump(output_json, outfile, indent=4)
 
