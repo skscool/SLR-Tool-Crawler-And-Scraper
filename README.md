@@ -7,7 +7,8 @@ You can also search for individual libraries ACM, IEEE, ScienceDirect or Springe
 ## Prerequisits
 * Django ``pip3 install Django``
 * BeautifulSoup ``pip3 install beautifulsoup4``
-* Requests ``pip3 install requests``
+* requests ``pip3 install requests``
+* requests_html ``pip3 requests_html``
 * Multidict ``pip3 install multidict``
 * threading module for parallel download from all the libraries ``pip3 install threading``
 
