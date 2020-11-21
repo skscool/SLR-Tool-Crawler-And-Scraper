@@ -1,9 +1,5 @@
 from bs4 import BeautifulSoup as soup
-from urllib.request import urlopen
-import csv
 import sys
-import urllib
-from urllib.error import HTTPError
 from requests_html import HTMLSession
 import requests
 
