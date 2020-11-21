@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
 	text-align: center;
 }
@@ -45,3 +46,54 @@ body{
 input{
 	border: 2px solid black;
 }
+=======
+
+		body{
+			text-align: center;
+		}
+		
+		#message{
+			height: 20px;
+		}
+		
+		.grid-container {
+		  display: grid;
+		  grid-template-columns: 1fr 1fr 1fr 1fr;
+		  grid-template-rows: .5fr .5fr .5fr .5fr .5fr .5fr;
+		  gap: 0px 0px;
+		  grid-template-areas:
+			". searchAreaRow1Col1 searchAreaRow1Col1 ."
+			". titleAreaRow1Col1 titleAreaRow1Col1 ."
+			". authorAreaRow2Col1 authorKeywordAreaRow2Col2 ."
+			". issnAreaRow3Col1 isbnAreaRow3Col2 ."
+			". yearStartAreaRow4Col1 yearEndAreaRow4Col2 ."
+			". downloadButtonAreaRow5 downloadButtonAreaRow5 .";
+		}
+
+		.searchAreaRow1Col1 { grid-area: searchAreaRow1Col1; }
+
+		.titleAreaRow1Col1 { grid-area: titleAreaRow1Col1; }
+
+		.authorAreaRow2Col1 { grid-area: authorAreaRow2Col1; }
+
+		.authorKeywordAreaRow2Col2 { grid-area: authorKeywordAreaRow2Col2; }
+
+		.issnAreaRow3Col1 { grid-area: issnAreaRow3Col1; }
+
+		.isbnAreaRow3Col2 { grid-area: isbnAreaRow3Col2; }
+
+		.yearStartAreaRow4Col1 { grid-area: yearStartAreaRow4Col1; }
+
+		.yearEndAreaRow4Col2 { grid-area: yearEndAreaRow4Col2; }
+
+		.downloadButtonAreaRow5 { grid-area: downloadButtonAreaRow5; }
+		
+		.grid-container > div{
+			margin-right: 5px;
+		}
+		
+		input{
+			border: 2px solid black;
+		}
+		
+>>>>>>> 885d81189dce476e152c6d139036aa22b22c0233
