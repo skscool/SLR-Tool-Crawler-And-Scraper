@@ -95,3 +95,9 @@ input{
 			border: 2px solid black;
 		}
 		
+#topHeading{
+    color: white;
+    text-align: center;
+	padding-top: 15px;
+	margin-bottom: 15px;
+}
