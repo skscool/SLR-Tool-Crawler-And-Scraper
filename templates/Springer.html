@@ -1,102 +1,115 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>SLR: Crawler & Scraper</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	{% load static %}    
-    <link rel= "stylesheet" type= "text/css" href="{% static 'style.css' %}">
+    <title>SLR: Crawler & Scraper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'springerStyle.css' %}">
-	
+
 </head>
+
 <body>
-	<div class="container">
-		<h1 id="topHeading">Literature Library</h1>
-	<div class="card text-center">
-	  <div class="card-header">
-	    <ul class="nav nav-tabs nav-fill card-header-tabs">
-	      <li class="nav-item">
-	        <a class="nav-link" href="/">All</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/acm">ACM</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/ieee">IEEE</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link active" href="/springer">Springer</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/scienceDirect">ScienceDirect</a>
-	      </li>
-	    </ul>
-	  </div>
-	  <div class="card-body">
-	    	
-			<form id="springerForm" action = "/fetchBibTexFromSpringer" method="POST" onsubmit="return validateMyForm(event);">
-				<div class="grid-container">
-				  <div class="searchArea">
-						<h3 class="card-title">Advanced Search</h3>
-						<hr>
-						<p class="card-text">Search within Springer Library</p>
-						<input id="searchString" name="searchString" type="text" placeholder="Enter Search String" style="width: 300px;">
-						<input id="getFiltersButton" type="button" value="Fetch Customized filters from Springer" style="width: 300px;" onclick="getFilters()">
-						<div id="message">  </div>
-						<button type="submit" href="#" class="btn btn-primary" >Download BibTex</button><br><br>
-				  </div>
-				  <div class="filterArea">
-					<h3 class="card-title">Filters</h3>
-					<hr>
-					
-					<h5 class="card-title">Literature Type</h5>
-					<div id="containerLiteratureType">	
-						<div id="rowLiteratureType1" class="rowMarginTop">
-							<select id="selectLiteratureType1" name="selectLiteratureType1">
+    <div class="container">
+        <h1 id="topHeading">Literature Library</h1>
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs nav-fill card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/acm">ACM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ieee">IEEE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/springer">Springer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scienceDirect">ScienceDirect</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+
+                <form id="springerForm" action="/fetchBibTexFromSpringer" method="POST" onsubmit="return validateMyForm(event);">
+                    <div class="grid-container">
+                        <div class="searchArea">
+                            <h3 class="card-title">Advanced Search</h3>
+                            <hr>
+                            <p class="card-text">Search within Springer Library</p>
+                            <input id="searchString" name="searchString" type="text" placeholder="Enter Search String" style="width: 300px;">
+                            <input id="getFiltersButton" type="button" value="Fetch Customized filters from Springer" style="width: 300px;" onclick="getFilters()">
+                            <div id="message"> </div>
+                            <button type="submit" href="#" onclick="downloading()" class="btn btn-primary">Download BibTex</button><br><br>
+                        </div>
+                        <div class="filterArea">
+                            <h3 class="card-title">Filters</h3>
+                            <hr>
+
+                            <h5 class="card-title">Literature Type</h5>
+                            <div id="containerLiteratureType">
+                                <div id="rowLiteratureType1" class="rowMarginTop">
+                                    <select id="selectLiteratureType1" name="selectLiteratureType1">
 								<option value="" selected disabled hidden>Select Type Of Literature</option>
 							</select>
-							<input disabled id="buttonLiteratureType1" type="button" value="+" onclick="addRowLiteratureType()" ><br>
-						</div>
-					</div>
-					
-					<div id="containerSubcategory">
-					<h5 class="card-title">Sub-Category</h5>
-						<div id="rowSubcategory1" class="rowMarginTop">
-							<select id="selectSubcategory1" name="selectSubcategory1">
+                                    <input disabled id="buttonLiteratureType1" type="button" value="+" onclick="addRowLiteratureType()"><br>
+                                </div>
+                            </div>
+
+                            <div id="containerSubcategory">
+                                <h5 class="card-title">Sub-Category</h5>
+                                <div id="rowSubcategory1" class="rowMarginTop">
+                                    <select id="selectSubcategory1" name="selectSubcategory1">
 								<option value="" selected disabled hidden>Select Subcategory</option>
 							</select>
-							<input id="buttonSubcategory1" type="button" value="+" onclick="addRowSubcategory()" class="add-del-Button"><br>
-						</div>
-					</div>
-					
-					<div id="containerReleaseDate">
-					<h5 class="card-title">Release Date</h5>
-						<div id="rowReleaseDate1" class="rowMarginTop">
-							<select id="selectReleaseDate1" name="selectReleaseDate1">
+                                    <input id="buttonSubcategory1" type="button" value="+" onclick="addRowSubcategory()" class="add-del-Button"><br>
+                                </div>
+                            </div>
+
+                            <div id="containerReleaseDate">
+                                <h5 class="card-title">Release Date</h5>
+                                <div id="rowReleaseDate1" class="rowMarginTop">
+                                    <select id="selectReleaseDate1" name="selectReleaseDate1">
 								<option value="" selected disabled hidden>Select Release Date</option>
 							</select>
-							<input id="buttonReleaseDate1" type="button" value="+" onclick="addRowReleaseDate()" class="add-del-Button"><br>
-						</div>
-					</div>
-					
-					<div id="containerLanguages">
-					<h5 class="card-title">Languages</h5>
-						<div id="rowLanguages1" class="rowMarginTop">
-							<select id="selectLanguages1" name="selectLanguages1">
+                                    <input id="buttonReleaseDate1" type="button" value="+" onclick="addRowReleaseDate()" class="add-del-Button"><br>
+                                </div>
+                            </div>
+
+                            <div id="containerLanguages">
+                                <h5 class="card-title">Languages</h5>
+                                <div id="rowLanguages1" class="rowMarginTop">
+                                    <select id="selectLanguages1" name="selectLanguages1">
 								<option value="" selected disabled hidden>Select Language</option>
 							</select>
-							<input id="buttonLanguages1" type="button" value="+" onclick="addRowLanguages()" class="add-del-Button"><br>
-						</div>
-					</div>
-						
-				  </div>
-				</div>
-			</form>
-	  </div>
-	</div>
-</div>
+                                    <input id="buttonLanguages1" type="button" value="+" onclick="addRowLanguages()" class="add-del-Button"><br>
+                                </div>
+                            </div>
 
-<script src="{% static 'springer.js' %}"></script>
-<script src="{% static 'springer_button.js' %}" type="text/javascript"></script>
-	
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'springer.js' %}"></script>
+    <script src="{% static 'springer_button.js' %}" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script>
+        function downloading() {
+            $.alert({
+                title: 'Fetching BibTeX',
+                content: 'The download might take time, please wait!',
+            });
+            console.log("from downloading");
+        }
+    </script>
 </body>
+
 </html>

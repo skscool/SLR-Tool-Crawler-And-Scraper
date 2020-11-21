@@ -3,9 +3,8 @@
 
 <head>
     <title>ACM</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    {% load static %}
-    <link rel= "stylesheet" type= "text/css" href="{% static 'acm.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'acm.css' %}">
 
 </head>
 
@@ -351,16 +350,28 @@
                             </div>
                         </div>
                         <div class="downloadButtonArea">
-                            <button type="submit" href="#" class="btn btn-primary">Download BibTex</button><br><br>
+                            <button type="submit" href="#" onclick="downloading()" class="btn btn-primary">Download BibTex</button><br><br>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-	
-     {% load static %}  
+
+    {% load static %}
     <script src="{% static 'acm.js' %}" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script>
+        function downloading() {
+            $.alert({
+                title: 'Fetching BibTeX',
+                content: 'The download might take time, please wait!',
+            });
+            console.log("from downloading");
+        }
+    </script>
 </body>
 
 </html>
