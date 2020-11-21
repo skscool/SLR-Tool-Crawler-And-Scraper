@@ -8,6 +8,7 @@ import multidict
 import threading 
 from datetime import date
 
+
 def bibToJson(fileName, bibs):
   print("total results", len(bibs))
   output_json = {}
@@ -16,7 +17,7 @@ def bibToJson(fileName, bibs):
   # print(output_json)
   # filename = 'output.json'   
   with open(fileName, 'w') as outfile:
-      json.dump(output_json, outfile)
+      json.dump(output_json, outfile, indent=4)
 
 def removeNone(searchInput):
   newInput = {}
@@ -115,7 +116,7 @@ def inputToScienceDirect(searchInput):
   try:
     start = searchInput.pop('yearStart')
     end = searchInput.pop('yearEnd')
-    if start != '1872' or end != date.today().year:
+    if start != '1872' or end != str(date.today().year):
       start = int(start)
       end = int(end)
       years = str(start)

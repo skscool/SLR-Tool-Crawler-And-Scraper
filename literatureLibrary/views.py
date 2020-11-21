@@ -261,7 +261,7 @@ def fetchBibTexFromSpringer(request):
 	
 	filename = "output.json"            #write to json file
 	with open(filename, 'w') as outfile:
-		json.dump(output_json, outfile)
+		json.dump(output_json, outfile, indent=4)
 
 	return sendDownloadedFile(filename)
 
