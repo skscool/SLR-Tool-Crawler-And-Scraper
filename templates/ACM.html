@@ -65,28 +65,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="filtersArea">
-                            <div id="containerFilters">
-                                <h5 class="card-title">Filters</h5>
-                                <div id="rowFilters1" class="rowMarginTop">
-                                    <select id="select1Filters1" name="selectFilters1">
-								<option value="publishedIn" >Published in</option>
-								<option value="artifactBadges" >Artifact Badges</option>
-								<option value="fundingAgency" >Funding Agency</option>
-								<option value="ccs" >CCS</option>
-								<option value="primaryCcs" >Primary CCS</option>
-								<option value="publisher" >Publisher</option>
-							</select>
-                                    <select id="select2Filters1" name="select2Filters1">
-								<option value="matchAll">Match All</option>
-								<option value="matchAny">Match Any</option>
-								<option value="matchNone">Match None</option>
-							</select>
-                                    <input id="textFilters1" type="text" name="textFilters1" placeholder="Enter Search term">
-                                    <input id="buttonFilters1" class="add-del-Button" type="button" value="+" onclick="addRowFilters()"><br>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="publicationDateArea">
                             <h5 class="card-title">Publication Date</h5>
                             <div id="publicationDate">
@@ -98,15 +76,7 @@
                                 </div>
                                 <div class="input-group time-frame">
                                     <label for="staticRange" class="radio--primary">
-					<!-- <input id="staticRange" type="radio" name="publicationDate" value=""> -->
-					<!-- <span class="label-txt">Last &nbsp &nbsp &nbsp </span>
-					</label>
-                                    <select id="staticRangeSelect" name="publicationDate" value="" class="inline staticRange">
-						<option value="">Please Select</option>
-						<option value="[20201011 TO 20201111]">month</option>
-						<option value="[20200511 TO 20201111]">6 months</option>
-						<option value="[20191111 TO 20201111]">year</option>
-					</select> -->
+
                                 </div>
                                 <div class="input-group time-frame dateFilterSelect">
                                     <label for="customRange" class="radio--primary">
@@ -388,65 +358,9 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var i = 1;
-
-        function addRowSearchWithin() {
-            var original = document.getElementById('rowSearchWithin' + i);
-            var clone = original.cloneNode(true);
-            i++;
-
-            clone.id = "rowSearchWithin" + i;
-            clone.getElementsByTagName('select')[0].id = "selectSearchWithin" + i;
-            clone.getElementsByTagName('input')[0].id = "textSearchWithin" + i;
-            clone.getElementsByTagName('input')[1].id = "buttonSearchWithin" + i;
-
-            clone.getElementsByTagName('select')[0].name = "selectSearchWithin" + i;
-            clone.getElementsByTagName('input')[0].name = "textSearchWithin" + i;
-            clone.getElementsByTagName('input')[1].name = "textSearchWithin" + i;
-
-            original.parentNode.appendChild(clone);
-
-            original.getElementsByTagName('input')[1].value = "-";
-            original.getElementsByTagName('input')[1].setAttribute("onclick", "deleteRowSearchWithin(this)");
-
-        }
-
-        function deleteRowSearchWithin(thisButton) {
-            thisButton.parentNode.remove();
-        }
-
-
-
-        var j = 1;
-
-        function addRowFilters() {
-            var original = document.getElementById('rowFilters' + j);
-            var clone = original.cloneNode(true);
-            j++;
-
-            clone.id = "rowFilters" + j;
-            clone.getElementsByTagName('select')[0].id = "select1Filters" + j;
-            clone.getElementsByTagName('select')[1].id = "select2Filters" + j;
-            clone.getElementsByTagName('input')[0].id = "textFilters" + j;
-            clone.getElementsByTagName('input')[1].id = "buttonFilters" + j;
-
-            clone.getElementsByTagName('select')[0].name = "select1Filters" + j;
-            clone.getElementsByTagName('select')[1].name = "select2Filters" + j;
-            clone.getElementsByTagName('input')[0].name = "textFilters" + j;
-
-            original.parentNode.appendChild(clone);
-
-            original.getElementsByTagName('input')[1].value = "-";
-            original.getElementsByTagName('input')[1].setAttribute("onclick", "deleteRowFilters(this)");
-
-        }
-
-        function deleteRowFilters(thisButton) {
-            thisButton.parentNode.remove();
-        }
-    </script>
+	
+     {% load static %}  
+    <script src="{% static 'acm.js' %}" type="text/javascript"></script>
 </body>
 
 </html>
