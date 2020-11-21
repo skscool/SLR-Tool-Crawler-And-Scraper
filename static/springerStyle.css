@@ -116,3 +116,10 @@ input:hover::-webkit-input-placeholder{
 .fail{
 	color: red;
 }
+
+#topHeading{
+    color: white;
+    text-align: center;
+	padding-top: 15px;
+	margin-bottom: 15px;
+}
