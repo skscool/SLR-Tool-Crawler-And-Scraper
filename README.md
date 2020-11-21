@@ -14,3 +14,15 @@ You can also search for individual libraries ACM, IEEE, ScienceDirect or Springe
 
 ## Running the application
 * ``python manage.py runserver 8080`` or any other Port.
+
+## UI
+
+![alt text](https://github.com/divyadreddy/SSD33/blob/main/screenshots/Screenshot%202020-11-21%20at%2011.14.42%20PM.png)
+
+![alt text](https://github.com/divyadreddy/SSD33/blob/main/screenshots/Screenshot%202020-11-21%20at%2011.14.44%20PM.png)
+
+![alt text](https://github.com/divyadreddy/SSD33/blob/main/screenshots/Screenshot%202020-11-21%20at%2011.14.46%20PM.png)
+
+![alt text](https://github.com/divyadreddy/SSD33/blob/main/screenshots/Screenshot%202020-11-21%20at%2011.14.48%20PM.png)
+
+![alt text](https://github.com/divyadreddy/SSD33/blob/main/screenshots/Screenshot%202020-11-21%20at%2011.14.50%20PM.png)
