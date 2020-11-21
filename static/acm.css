@@ -15,7 +15,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0fr .6fr .6fr .6fr .6fr;
+    grid-template-rows: 0fr .6fr .2fr .6fr .9fr;
     gap: 0px 0px;
     grid-template-areas: "titleArea titleArea titleArea titleArea" "searchWithinArea searchWithinArea searchWithinArea searchWithinArea" "filtersArea filtersArea filtersArea filtersArea" "publicationDateArea publicationDateArea publicationDateArea publicationDateArea" "downloadButtonArea downloadButtonArea downloadButtonArea downloadButtonArea";
 }
