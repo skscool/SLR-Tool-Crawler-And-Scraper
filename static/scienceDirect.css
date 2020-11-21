@@ -97,3 +97,10 @@ input[type="checkbox"] {
 .articleTypeCol3 {
     grid-area: articleTypeCol3;
 }
+
+#topHeading{
+    color: white;
+    text-align: center;
+	padding-top: 15px;
+	margin-bottom: 15px;
+}
